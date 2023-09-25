@@ -3,15 +3,18 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Bombe
+  - Rayon
+  - MurDestructible
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Bombe
   - Water
   - UI
-  - 
+  - Rayon
   - 
   - 
   - 
