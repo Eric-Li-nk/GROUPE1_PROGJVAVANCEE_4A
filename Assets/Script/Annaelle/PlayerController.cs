@@ -51,6 +51,7 @@ public class PlayerController : MonoBehaviour
         {
             GameObject newBomb = Instantiate(Bomb);
             newBomb.transform.position = placeBomb.transform.position;
+            Destroy(newBomb,2.6f);
         }
     }
     
