@@ -14,17 +14,17 @@ public class IaController : MonoBehaviour
         switch (randAct)
         {
             case 0: 
-                this.transform.position += new Vector3(-0.05f, 0f, 0f);
+                this.transform.position += new Vector3(-0.005f, 0f, 0f);
                 break;
             
             case 1:
-                this.transform.position += new Vector3(0.05f, 0f, 0f);
+                this.transform.position += new Vector3(0.005f, 0f, 0f);
                 break;
             case 2:
-                this.transform.position += new Vector3(0f, 0f, 0.05f);
+                this.transform.position += new Vector3(0f, 0f, 0.005f);
                 break;
             case 3:
-                this.transform.position += new Vector3(0f, 0f, -0.05f);
+                this.transform.position += new Vector3(0f, 0f, -0.005f);
                 break;
             case 4:
                 GameObject newBomb = Instantiate(Bomb);

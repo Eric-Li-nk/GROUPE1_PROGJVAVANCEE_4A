@@ -25,10 +25,10 @@ public class RayonCollider : MonoBehaviour
     {
         if (collision.transform.tag == "MurDestructible" || collision.transform.tag == "Player")
         {
-            if(collision.transform.tag == "Player")
-                BombermanState.isGameOver = true;
-            
+            this.gameObject.SetActive(false);
             Destroy(collision.gameObject);
+            if (collision.transform.tag == "Player")
+                Temporarycontrols.instance.GameOver();
         }
 	this.gameObject.SetActive(false);
     }

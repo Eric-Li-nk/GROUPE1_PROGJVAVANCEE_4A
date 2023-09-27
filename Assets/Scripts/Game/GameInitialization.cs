@@ -10,6 +10,7 @@ public class GameInitialization : MonoBehaviour
     [SerializeField] private GameObject blocPrefab;
 
     [SerializeField] private GameObject playerPrefab;
+    [SerializeField] private GameObject player2Prefab;
     [SerializeField] private GameObject RandomIAPrefab;
     [SerializeField] private GameObject MCTSIAPrefab;
 
@@ -24,18 +25,26 @@ public class GameInitialization : MonoBehaviour
 
     private void SpawnPlayers()
     {
-        SpawnPlayer(_gameConfig.player1, spawnPointPlayer1);
-        SpawnPlayer(_gameConfig.player2, spawnPointPlayer2);
+        if (_gameConfig.player1 == _gameConfig.player2 && _gameConfig.player1 == PlayerType.Human)
+        {
+            Temporarycontrols.instance.player1 = Instantiate(playerPrefab, spawnPointPlayer1.position, spawnPointPlayer1.rotation);
+            Temporarycontrols.instance.player2 = Instantiate(player2Prefab, spawnPointPlayer2.position, spawnPointPlayer2.rotation);
+        }
+        else
+        {
+            Temporarycontrols.instance.player1 = SpawnPlayer(_gameConfig.player1, spawnPointPlayer1);
+            Temporarycontrols.instance.player2 = SpawnPlayer(_gameConfig.player2, spawnPointPlayer2);
+        }
     }
 
-    private void SpawnPlayer(PlayerType playerType, Transform transform)
+    private GameObject SpawnPlayer(PlayerType playerType, Transform transform)
     {
         GameObject prefabToSpawn = null;
         switch (playerType)
         {
             case PlayerType.None:
                 Debug.LogError("Players is not set !!!!");
-                return;
+                return null;
             case PlayerType.Human:
                 prefabToSpawn = playerPrefab;
                 break;
@@ -46,7 +55,7 @@ public class GameInitialization : MonoBehaviour
                 prefabToSpawn = MCTSIAPrefab;
                 break;
         }
-        Instantiate(prefabToSpawn, transform.position, transform.rotation);
+        return Instantiate(prefabToSpawn, transform.position, transform.rotation);
     }
 
     private void SpawnBlocs()
