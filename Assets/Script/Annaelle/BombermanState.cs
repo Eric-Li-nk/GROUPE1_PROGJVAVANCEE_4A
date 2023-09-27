@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BombermanState : GameState
+public class BombermanState : MonoBehaviour
 {
     public enum PlayerAction{
         DoNothing = 0,
@@ -13,9 +13,13 @@ public class BombermanState : GameState
         PutBomb = 5
     }
 
-    private bool isGameOver;
+    public static bool isGameOver;
     private float score;
     private PlayerAction act;
+
+    [SerializeField] private List<GameObject> player;
+    [SerializeField] private GameObject Player1Spawn;
+    [SerializeField] private GameObject Player2Spawn;
     
     public bool IsGameOver()
     {
@@ -24,23 +28,11 @@ public class BombermanState : GameState
 
     public void Reset()
     {
-        
+        player[0].transform.position = Player1Spawn.transform.position;
+        player[1].transform.position = Player2Spawn.transform.position;
     }
 
-    public void Act(BombermanState.PlayerAction action)
-    {
-        
-    }
-
-    public void Render()
-    {
-        
-    }
-
-    public BombermanState.PlayerAction GetUserInputs()
-    {
-        return act;
-    }
+    
 
     public float GetScore()
     {

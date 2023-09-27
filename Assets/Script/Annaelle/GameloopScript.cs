@@ -12,20 +12,39 @@ public enum GameMode{
 
 public class GameloopScript : MonoBehaviour
 {
+    private BombermanState bombermanstate;
+    
     [SerializeField] private GameMode gamemode;
-    private GameState game;
+    private BombermanState game;
+    [SerializeField] private GameObject IA;
+    [SerializeField] private GameObject MenuFin;
+    
+
+    private void Start()
+    {
+        MenuFin.SetActive(false);
+        switch (gamemode)
+        {
+            case GameMode.PvP: 
+                IA.GetComponent<IaController>().enabled = false;
+                IA.GetComponent<PlayerController>().enabled = true;
+                break;
+            
+            case GameMode.PvRand :
+                IA.GetComponent<IaController>().enabled = true;
+                IA.GetComponent<PlayerController>().enabled = false;
+                break;
+        }
+    }
 
     private void Update()
     {
-        game.Render();
-        while(!game.IsGameOver())
-        {
-            var inputs = game.GetUserInputs();
-            game.Act(inputs);
-            game.Render();
-        }
         
-        Debug.Log($"End + : {game.GetScore()}");
-        game.Reset();
+        if(game.IsGameOver())
+        {
+            MenuFin.SetActive(true);
+        }
+       
+        //game.Reset();
     }
 }
