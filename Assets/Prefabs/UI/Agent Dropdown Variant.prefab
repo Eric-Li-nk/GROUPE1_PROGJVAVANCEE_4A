@@ -11,12 +11,12 @@ PrefabInstance:
     - target: {fileID: 4094326747850608353, guid: bfbe7be3c647d2f40ad41266f9b668c3,
         type: 3}
       propertyPath: m_Options.m_Options.Array.data[0].m_Text
-      value: Random
+      value: Human
       objectReference: {fileID: 0}
     - target: {fileID: 4094326747850608353, guid: bfbe7be3c647d2f40ad41266f9b668c3,
         type: 3}
       propertyPath: m_Options.m_Options.Array.data[1].m_Text
-      value: Human
+      value: Random
       objectReference: {fileID: 0}
     - target: {fileID: 4094326747850608353, guid: bfbe7be3c647d2f40ad41266f9b668c3,
         type: 3}
