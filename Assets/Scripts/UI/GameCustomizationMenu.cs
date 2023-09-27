@@ -7,7 +7,7 @@ public class GameCustomizationMenu : AMenuManager
 {
 
     [SerializeField] private string _gameStartScene;
-    
+
     public void Play()
     {
         Debug.Log("Starting game !");
