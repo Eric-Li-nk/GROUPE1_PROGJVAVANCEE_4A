@@ -47,28 +47,8 @@ PrefabInstance:
         type: 3}
     - target: {fileID: 845520929064790909, guid: 54a281ec4e7760849aacb3746e4def08,
         type: 3}
-      propertyPath: KeyUp
-      value: 273
-      objectReference: {fileID: 0}
-    - target: {fileID: 845520929064790909, guid: 54a281ec4e7760849aacb3746e4def08,
-        type: 3}
-      propertyPath: KeyBomb
-      value: 256
-      objectReference: {fileID: 0}
-    - target: {fileID: 845520929064790909, guid: 54a281ec4e7760849aacb3746e4def08,
-        type: 3}
-      propertyPath: KeyDown
-      value: 274
-      objectReference: {fileID: 0}
-    - target: {fileID: 845520929064790909, guid: 54a281ec4e7760849aacb3746e4def08,
-        type: 3}
-      propertyPath: KeyLeft
-      value: 276
-      objectReference: {fileID: 0}
-    - target: {fileID: 845520929064790909, guid: 54a281ec4e7760849aacb3746e4def08,
-        type: 3}
-      propertyPath: KeyRight
-      value: 275
+      propertyPath: moveSpeed
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 845520929064790909, guid: 54a281ec4e7760849aacb3746e4def08,
         type: 3}
@@ -128,7 +108,7 @@ PrefabInstance:
     - target: {fileID: 4313164827163981980, guid: 54a281ec4e7760849aacb3746e4def08,
         type: 3}
       propertyPath: m_Name
-      value: PlayerPrefab Variant 1
+      value: Player 1
       objectReference: {fileID: 0}
     - target: {fileID: 4313164827163981980, guid: 54a281ec4e7760849aacb3746e4def08,
         type: 3}
@@ -147,6 +127,10 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 7491380240378421621}
+    - targetCorrespondingSourceObject: {fileID: 4313164827163981980, guid: 54a281ec4e7760849aacb3746e4def08,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 3193786800474357805}
   m_SourcePrefab: {fileID: 100100000, guid: 54a281ec4e7760849aacb3746e4def08, type: 3}
 --- !u!1 &4690185540482525878 stripped
 GameObject:
@@ -178,9 +162,88 @@ Rigidbody:
   m_ImplicitTensor: 1
   m_UseGravity: 1
   m_IsKinematic: 0
-  m_Interpolate: 0
+  m_Interpolate: 1
   m_Constraints: 112
   m_CollisionDetection: 0
+--- !u!114 &3193786800474357805
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4690185540482525878}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Actions: {fileID: -944628639613478452, guid: 96d615c8dd8a7bc459bf8ef18bc782c9,
+    type: 3}
+  m_NotificationBehavior: 2
+  m_UIInputModule: {fileID: 0}
+  m_DeviceLostEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_DeviceRegainedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ControlsChangedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ActionEvents:
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 8175852633050036567}
+        m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
+        m_MethodName: OnMove
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 08cf2c48-f1cf-4464-9433-f9f53e86fd55
+    m_ActionName: Player/Move[/Keyboard/w,/Keyboard/s,/Keyboard/a,/Keyboard/d]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 8175852633050036567}
+        m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
+        m_MethodName: OnPlaceBomb
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: eefa8b69-67fc-41e3-8ba2-e87060427362
+    m_ActionName: Player/Place Bomb[/Keyboard/space]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 3c7687af-5822-445d-b800-1eec43d149ec
+    m_ActionName: Player/Open Menu[/Keyboard/escape]
+  m_NeverAutoSwitchControlSchemes: 0
+  m_DefaultControlScheme: 
+  m_DefaultActionMap: Player
+  m_SplitScreenIndex: -1
+  m_Camera: {fileID: 0}
+--- !u!114 &8175852633050036567 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 845520929064790909, guid: 54a281ec4e7760849aacb3746e4def08,
+    type: 3}
+  m_PrefabInstance: {fileID: 8848889821917286954}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4690185540482525878}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 61a585bb46d027345be6d9f5d31845ae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &8596733142184007845 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 972822969045191311, guid: 54a281ec4e7760849aacb3746e4def08,

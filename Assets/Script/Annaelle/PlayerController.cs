@@ -33,9 +33,12 @@ public class PlayerController : MonoBehaviour
 
     public void OnPlaceBomb(InputAction.CallbackContext context)
     {
-        GameObject newBomb = Instantiate(Bomb);
-        newBomb.transform.position = placeBomb.transform.position;
-        Destroy(newBomb,2.6f);
+        if(context.ReadValueAsButton())
+        {
+            GameObject newBomb = Instantiate(Bomb);
+            newBomb.transform.position = placeBomb.transform.position;
+            Destroy(newBomb, 2.6f);
+        }
     }
 
     void FixedUpdate()
