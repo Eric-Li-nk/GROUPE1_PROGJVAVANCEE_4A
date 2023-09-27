@@ -28,7 +28,7 @@ public class GameInitialization : MonoBehaviour
         SpawnPlayer(_gameConfig.player2, spawnPointPlayer2);
     }
 
-    private void SpawnPlayer(PlayerType playerType, Transform position)
+    private void SpawnPlayer(PlayerType playerType, Transform transform)
     {
         GameObject prefabToSpawn = null;
         switch (playerType)
@@ -46,7 +46,7 @@ public class GameInitialization : MonoBehaviour
                 prefabToSpawn = MCTSIAPrefab;
                 break;
         }
-        Instantiate(prefabToSpawn, spawnPointPlayer1);
+        Instantiate(prefabToSpawn, transform.position, transform.rotation);
     }
 
     private void SpawnBlocs()
