@@ -37,6 +37,8 @@ public class PlayerController : MonoBehaviour
         {
             GameObject newBomb = Instantiate(Bomb);
             newBomb.transform.position = placeBomb.transform.position;
+            newBomb.transform.position = new Vector3(Mathf.RoundToInt(newBomb.transform.position.x),
+                newBomb.transform.position.y, Mathf.RoundToInt(newBomb.transform.position.z));
             Destroy(newBomb, 2.6f);
         }
     }
