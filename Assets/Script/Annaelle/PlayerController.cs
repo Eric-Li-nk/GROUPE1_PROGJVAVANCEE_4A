@@ -5,17 +5,6 @@ using System.IO;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-public enum PlayerAction{
-    DoNothing = 0,
-    GoLeft = -1,
-    GoRight = 1,
-    GoUp = -2,
-    GoDown = 2,
-    PutBomb = 3
-}
-
-
-
 
 public class PlayerController : MonoBehaviour
 {
@@ -39,22 +28,22 @@ public class PlayerController : MonoBehaviour
     {
         if (Input.GetKey(KeyLeft))
         {
-            if(updateMap(map, 'J',PlayerAction.GoLeft) == 1 )
-                this.transform.position += new Vector3(-0.55f, 0f, 0f);;
+            //if(updateMap(map, 'J',BombermanState.PlayerAction.GoLeft) == 1)
+                this.transform.position += new Vector3(-0.55f, 0f, 0f);
         }
         if (Input.GetKey(KeyRight))
         {
-            if(updateMap(map, 'J',PlayerAction.GoRight) == 1 )
+            //if(updateMap(map, 'J',BombermanState.PlayerAction.GoRight) == 1 )
                 this.transform.position += new Vector3(0.55f, 0f, 0f);
         }
         if (Input.GetKey(KeyUp))
         {
-            if(updateMap(map, 'J',PlayerAction.GoUp) == 1 )
+            //if(updateMap(map, 'J',BombermanState.PlayerAction.GoUp) == 1 )
                 this.transform.position += new Vector3(0f, 0f, 0.55f);
         }
         if (Input.GetKey(KeyDown))
         {
-            if(updateMap(map, 'J',PlayerAction.GoDown) == 1 )
+            //if(updateMap(map, 'J',BombermanState.PlayerAction.GoDown) == 1 )
                 this.transform.position += new Vector3(0f, 0f, -0.55f);
         }
         
@@ -63,7 +52,6 @@ public class PlayerController : MonoBehaviour
             GameObject newBomb = Instantiate(Bomb);
             newBomb.transform.position = placeBomb.transform.position;
         }
-    
     }
     
     void intiateMap(char[][] map){
@@ -108,7 +96,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    int updateMap(char[][] map, char jr, PlayerAction act)
+    int updateMap(char[][] map, char jr, BombermanState.PlayerAction act)
     {
         int pos=0;
         int currentRow = 0;
@@ -130,15 +118,15 @@ public class PlayerController : MonoBehaviour
 
         switch (act)
         {
-            case PlayerAction.DoNothing :
+            case BombermanState.PlayerAction.DoNothing :
                 break;
-            case PlayerAction.GoLeft :
+            case BombermanState.PlayerAction.GoLeft :
                 return MoveLeft(map, currentRow, pos);
-            case PlayerAction.GoRight : 
+            case BombermanState.PlayerAction.GoRight : 
                 return MoveRight(map, currentRow, pos);
-            case PlayerAction.GoUp : 
+            case BombermanState.PlayerAction.GoUp : 
                 return MoveUp(map, currentRow, pos);
-            case PlayerAction.GoDown : 
+            case BombermanState.PlayerAction.GoDown : 
                 return MoveDown(map, currentRow, pos);
             default:
                 return 0;
@@ -175,7 +163,6 @@ public class PlayerController : MonoBehaviour
     {
         if (row -1 >0 && map[row-1][col] == '0')
         {
-            Debug.Log("ok");
             map[row-1][col] = 'J';
             map[row][col] = '0';
             printMap(map);
