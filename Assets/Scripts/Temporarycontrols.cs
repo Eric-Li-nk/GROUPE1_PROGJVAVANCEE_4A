@@ -25,15 +25,15 @@ public class Temporarycontrols : MonoBehaviour
 
     public void OpenMenu(InputAction.CallbackContext context)
     {
+        menuCanvas.SetActive(!menuCanvas.activeSelf);
         if (menuCanvas.activeSelf)
-        {
-            Time.timeScale = 0f;
-        }
-        else
         {
             Time.timeScale = 1f;
         }
-        menuCanvas.SetActive(!menuCanvas.activeSelf);
+        else
+        {
+            Time.timeScale = 0f;
+        }
     }
 
     public void Return()

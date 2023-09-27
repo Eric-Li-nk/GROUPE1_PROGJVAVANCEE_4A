@@ -3,56 +3,44 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.UIElements;
 
 
 public class PlayerController : MonoBehaviour
 {
-    [SerializeField] private KeyCode KeyLeft;
-    [SerializeField] private KeyCode KeyRight;
-    [SerializeField] private KeyCode KeyUp;
-    [SerializeField] private KeyCode KeyDown;
-    [SerializeField] private KeyCode KeyBomb;
-    
+
     [SerializeField] private GameObject placeBomb;
     [SerializeField] private GameObject Bomb;
+
+    [SerializeField] private float moveSpeed;
     
     private char[][] map = new char[25][];
+    
+    private Rigidbody _rigidbody;
+    private Vector2 moveInput = Vector2.zero;
 
     private void Start()
     {
+        _rigidbody = GetComponent<Rigidbody>();
         intiateMap(map);
     }
 
-    void Update()
+    public void OnMove(InputAction.CallbackContext context)
     {
-        if (Input.GetKey(KeyLeft))
-        {
-            //if(updateMap(map, 'J',BombermanState.PlayerAction.GoLeft) == 1)
-                this.transform.position += new Vector3(-0.005f, 0f, 0f);
-        }
-        if (Input.GetKey(KeyRight))
-        {
-            //if(updateMap(map, 'J',BombermanState.PlayerAction.GoRight) == 1 )
-                this.transform.position += new Vector3(0.005f, 0f, 0f);
-        }
-        if (Input.GetKey(KeyUp))
-        {
-            //if(updateMap(map, 'J',BombermanState.PlayerAction.GoUp) == 1 )
-                this.transform.position += new Vector3(0f, 0f, 0.005f);
-        }
-        if (Input.GetKey(KeyDown))
-        {
-            //if(updateMap(map, 'J',BombermanState.PlayerAction.GoDown) == 1 )
-                this.transform.position += new Vector3(0f, 0f, -0.005f);
-        }
-        
-        if (Input.GetKeyDown(KeyBomb))
-        {
-            GameObject newBomb = Instantiate(Bomb);
-            newBomb.transform.position = placeBomb.transform.position;
-            Destroy(newBomb,2.6f);
-        }
+        moveInput = context.ReadValue<Vector2>();
+    }
+
+    public void OnPlaceBomb(InputAction.CallbackContext context)
+    {
+        GameObject newBomb = Instantiate(Bomb);
+        newBomb.transform.position = placeBomb.transform.position;
+        Destroy(newBomb,2.6f);
+    }
+
+    void FixedUpdate()
+    {
+        _rigidbody.velocity = new Vector3(moveInput.x, 0, moveInput.y) * moveSpeed;
     }
     
     void intiateMap(char[][] map){

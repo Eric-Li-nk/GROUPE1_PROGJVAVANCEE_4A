@@ -103,7 +103,7 @@ PrefabInstance:
     - target: {fileID: 4313164827163981980, guid: 54a281ec4e7760849aacb3746e4def08,
         type: 3}
       propertyPath: m_Name
-      value: IA
+      value: IA Random
       objectReference: {fileID: 0}
     - target: {fileID: 4313164827163981980, guid: 54a281ec4e7760849aacb3746e4def08,
         type: 3}
@@ -156,7 +156,7 @@ Rigidbody:
     m_Bits: 0
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
-  m_UseGravity: 0
+  m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 112
@@ -175,6 +175,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   placeBomb: {fileID: 7681779381560721615}
   Bomb: {fileID: 2086926308448993238, guid: f0f823176ca4aea48a3d262a5ef4283e, type: 3}
+  moveSpeed: 5
 --- !u!4 &8596733142184007845 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 972822969045191311, guid: 54a281ec4e7760849aacb3746e4def08,
