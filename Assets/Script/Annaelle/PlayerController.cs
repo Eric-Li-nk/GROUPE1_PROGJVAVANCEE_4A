@@ -29,28 +29,29 @@ public class PlayerController : MonoBehaviour
         if (Input.GetKey(KeyLeft))
         {
             //if(updateMap(map, 'J',BombermanState.PlayerAction.GoLeft) == 1)
-                this.transform.position += new Vector3(-0.55f, 0f, 0f);
+                this.transform.position += new Vector3(-0.05f, 0f, 0f);
         }
         if (Input.GetKey(KeyRight))
         {
             //if(updateMap(map, 'J',BombermanState.PlayerAction.GoRight) == 1 )
-                this.transform.position += new Vector3(0.55f, 0f, 0f);
+                this.transform.position += new Vector3(0.05f, 0f, 0f);
         }
         if (Input.GetKey(KeyUp))
         {
             //if(updateMap(map, 'J',BombermanState.PlayerAction.GoUp) == 1 )
-                this.transform.position += new Vector3(0f, 0f, 0.55f);
+                this.transform.position += new Vector3(0f, 0f, 0.05f);
         }
         if (Input.GetKey(KeyDown))
         {
             //if(updateMap(map, 'J',BombermanState.PlayerAction.GoDown) == 1 )
-                this.transform.position += new Vector3(0f, 0f, -0.55f);
+                this.transform.position += new Vector3(0f, 0f, -0.05f);
         }
         
         if (Input.GetKeyDown(KeyBomb))
         {
             GameObject newBomb = Instantiate(Bomb);
             newBomb.transform.position = placeBomb.transform.position;
+            Destroy(newBomb,2.6f);
         }
     }
     
