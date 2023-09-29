@@ -23,6 +23,7 @@ public class RayonCollider : MonoBehaviour
 
     void OnCollisionEnter(Collision collision)
     {
+        
         if (collision.transform.tag == "MurDestructible" || collision.transform.tag == "Player")
         {
             this.gameObject.SetActive(false);

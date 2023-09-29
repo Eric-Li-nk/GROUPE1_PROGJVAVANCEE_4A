@@ -16,7 +16,9 @@ public class GameInitialization : MonoBehaviour
 
     [SerializeField] private Transform spawnPointPlayer1;
     [SerializeField] private Transform spawnPointPlayer2;
-
+    
+    public static char[][] map = new char[25][];
+    
     void Start()
     {
         SpawnBlocs();
@@ -69,10 +71,25 @@ public class GameInitialization : MonoBehaviour
             c = (char) reader.Read();
             
             Vector3 position = new Vector3(x, blocPrefab.transform.position.y, z);
+            
+            /*
+             * Creer une fonct° qui initialise une case du tab blocs
+             * param :
+             * * row
+             * * col (max 25)
+             * * GameObject block
+             *
+             *----------------
+             * 
+             * faire col++ a chaque fin d'iteration
+             * faire row++ a chaque fois que col > 25
+             * 
+             */
             switch (c)
             {
                 case '0':
                     Instantiate(blocPrefab, position, blocPrefab.transform.rotation, blocList);
+                    
                     x += 1;
                     break;
                 case '\n':
@@ -85,6 +102,6 @@ public class GameInitialization : MonoBehaviour
             }
         }
         reader.Close();
-
     }
+
 }
