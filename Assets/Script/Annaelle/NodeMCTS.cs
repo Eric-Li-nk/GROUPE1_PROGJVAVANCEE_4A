@@ -8,16 +8,17 @@ public class NodeMCTS : MonoBehaviour
 {
     private NodeMCTS parent;
 
-    private List<NodeMCTS> children;
+    public List<NodeMCTS> children;
 
-    private Time timeSurvied;
+    private int nbWin;
 
+    private int numberVisit;
 
     private GameState _gameState;
 
     private BombermanState.PlayerAction currentAct;
     
-    public NodeMCTS(NodeMCTS parent, List<NodeMCTS> children, Time timeSurvied, GameState gameState, BombermanState.PlayerAction currentAct)
+    public NodeMCTS(NodeMCTS parent, List<NodeMCTS> children, int nbWin, GameState gameState, BombermanState.PlayerAction currentAct)
     {
         this.parent = parent;
         
@@ -26,7 +27,7 @@ public class NodeMCTS : MonoBehaviour
             this.children.Add(children[i]);
         }
         
-        this.timeSurvied = timeSurvied;
+        this.nbWin = nbWin;
         _gameState = gameState;
         this.currentAct = currentAct;
     }
@@ -35,11 +36,19 @@ public class NodeMCTS : MonoBehaviour
     {
         this.parent = null;
         this.children = null;
-        this.timeSurvied = null;
+        this.nbWin = 0;
         this._gameState = currentState;
         this.currentAct = BombermanState.PlayerAction.DoNothing;
     }
     
+    public NodeMCTS(GameState currentState, NodeMCTS parent, BombermanState.PlayerAction selectAct)
+    {
+        this.parent = parent;
+        this.children = null;
+        this.nbWin = 0;
+        this._gameState = currentState;
+        this.currentAct = selectAct;
+    }
     public NodeMCTS GetParent()
     {
         return this.parent;
@@ -50,16 +59,28 @@ public class NodeMCTS : MonoBehaviour
         return this.children;
     }
     
-    public Time GetTimeSurvied()
+    public int GetWin()
     {
         //temps de survie + 1 si vic
         //temps de survie -1 si lose
-        return this.timeSurvied;
+        return this.nbWin;
+        
+        
     }
 
-    public void createChildren()
+    public void SetWin(int x)
     {
-        
+        this.nbWin = x;
+    }
+
+    public void SetNumberVisit(int x)
+    {
+        this.numberVisit = x;
+    }
+
+    public int GetNumberVisit()
+    {
+        return numberVisit;
     }
     
     

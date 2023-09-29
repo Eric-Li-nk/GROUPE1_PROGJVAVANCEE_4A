@@ -30,4 +30,13 @@ public class GameState : MonoBehaviour
     {
         return this.board;
     }
+
+    public GameState Copy()
+    {
+        GameState copy = new GameState();
+        copy.board = this.board;
+        copy.timer = this.timer;
+
+        return Copy();
+    }
 }
