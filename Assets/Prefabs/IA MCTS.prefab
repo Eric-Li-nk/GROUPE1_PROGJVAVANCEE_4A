@@ -137,6 +137,10 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: -1151389057870612374}
+    - targetCorrespondingSourceObject: {fileID: 4313164827163981980, guid: 54a281ec4e7760849aacb3746e4def08,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2102169498691558194}
   m_SourcePrefab: {fileID: 100100000, guid: 54a281ec4e7760849aacb3746e4def08, type: 3}
 --- !u!1 &4690185540482525878 stripped
 GameObject:
@@ -187,6 +191,19 @@ MonoBehaviour:
   placeBomb: {fileID: 7681779381560721615}
   Bomb: {fileID: 2086926308448993238, guid: f0f823176ca4aea48a3d262a5ef4283e, type: 3}
   moveSpeed: 5
+--- !u!114 &2102169498691558194
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4690185540482525878}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a063c25f281487d4fb8a0ba777c80d9f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  name: B
 --- !u!4 &8596733142184007845 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 972822969045191311, guid: 54a281ec4e7760849aacb3746e4def08,

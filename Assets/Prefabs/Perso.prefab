@@ -114,11 +114,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 61a585bb46d027345be6d9f5d31845ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  KeyLeft: 97
-  KeyRight: 100
-  KeyUp: 119
-  KeyDown: 115
-  KeyBomb: 8
+  placeBomb: {fileID: 0}
+  Bomb: {fileID: 0}
+  moveSpeed: 0
+  playerChar: 48
 --- !u!136 &5020115081891557627
 CapsuleCollider:
   m_ObjectHideFlags: 0

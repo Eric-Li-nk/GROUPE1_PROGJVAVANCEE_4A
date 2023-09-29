@@ -27,7 +27,7 @@ public class NodeMCTS
         this.children = children;
 
         this.nbWin = nbWin;
-        _gameState = gameState;
+        _gameState = (GameState)gameState.Clone();
         this.currentAct = currentAct;
     }
 
@@ -45,7 +45,7 @@ public class NodeMCTS
         this.parent = parent;
         this.children = new List<NodeMCTS>();
         this.nbWin = 0;
-        this._gameState = currentState;
+        this._gameState = (GameState)currentState.Clone();
         this.currentAct = selectAct;
     }
     public NodeMCTS GetParent()
@@ -63,8 +63,6 @@ public class NodeMCTS
         //temps de survie + 1 si vic
         //temps de survie -1 si lose
         return this.nbWin;
-        
-        
     }
 
     public void SetWin(int x)

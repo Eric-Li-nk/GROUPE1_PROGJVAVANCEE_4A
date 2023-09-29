@@ -162,6 +162,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _gameConfig: {fileID: 11400000, guid: 81d3a4f66f816aa47a602ada9a53a2af, type: 2}
   blocList: {fileID: 1852697131}
+  playerList: {fileID: 1933295990}
   blocPrefab: {fileID: 5613615574301569024, guid: 325ae10496371f04c86a8ca55f1f97cf,
     type: 3}
   player1Prefab: {fileID: 4690185540482525878, guid: e3c3dea13b8bf424fb0c0415791484c8,
@@ -2632,6 +2633,37 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1618104394}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1933295989
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1933295990}
+  m_Layer: 0
+  m_Name: PlayerList
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1933295990
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1933295989}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 22.028881, y: 0.71686554, z: -7.3065414}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1957535220
 GameObject:
   m_ObjectHideFlags: 0
@@ -2932,3 +2964,4 @@ SceneRoots:
   - {fileID: 1957535224}
   - {fileID: 1660766014}
   - {fileID: 1442257691}
+  - {fileID: 1933295990}

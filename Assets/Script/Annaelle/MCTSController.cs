@@ -30,10 +30,10 @@ public class MCTSController : MonoBehaviour
     [SerializeField] private GameObject Bomb;
     
     //nombre de tick a effectuer
-    private int numberTest = 30;
+    private int numberTest = 10;
     
     //nombre de simulation
-    private int numberSimulation = 50;
+    private int numberSimulation = 30;
     
     //facteur d'exploration
     private float factEploration = 0.6f;
@@ -51,11 +51,13 @@ public class MCTSController : MonoBehaviour
 
     void Update()
     {
+        currentGameState.RefreshBoardUnity();
         //activation du MCTS
         act = MCTSAction();
-
+        
         //effectuer l'action selectionner
         PlayAction(act);
+        
     }
     
     private BombermanState.PlayerAction MCTSAction()
@@ -68,8 +70,8 @@ public class MCTSController : MonoBehaviour
         {
             NodeMCTS selectedNode = Selection();
             NodeMCTS newNode = Expand(selectedNode);
-            int nb_vic = Simulation(newNode, numberSimulation);
-            Backpropagation(newNode, nb_vic, numberSimulation);
+            int score = Simulation(newNode, numberSimulation);
+            Backpropagation(newNode, score, numberSimulation);
         }
         
         return GetBestScore(StartNode).GetActionPlayer();
@@ -115,6 +117,7 @@ public class MCTSController : MonoBehaviour
     private NodeMCTS Expand(NodeMCTS selectNode)
     {
         getListAction();
+
         if (MoveToPlay.Count == 0)
         {
             return selectNode;
@@ -132,26 +135,25 @@ public class MCTSController : MonoBehaviour
 
     private int Simulation(NodeMCTS startNode, int nbSimulation)
     {
-        int nbWin = 0;
+        int score = 0;
         for (int i = 0; i < nbSimulation; i++)
         {
-            GameState copyCurrentGamestate = currentGameState.Copy();
-            while (copyCurrentGamestate.IsGameOver())
+            GameState copyCurrentGamestate = (GameState) startNode.GetGameState().Clone();
+            while (!copyCurrentGamestate.IsGameOver())
             {
-                copyCurrentGamestate.RefreshBoard();
-                copyCurrentGamestate.PlayAction(selectRandAct(getListAction(copyCurrentGamestate.GetBoard())));
+                copyCurrentGamestate.PlayAction(selectRandAct(getListAction(copyCurrentGamestate.GetBoard(), copyCurrentGamestate.bombBoard)));
             }
-            nbWin += copyCurrentGamestate.win;
+            score += copyCurrentGamestate.score;
         }
-        return nbWin;
+        return score;
     }
 
-    private void Backpropagation(NodeMCTS newNode, int nbVic, int nbSim)
+    private void Backpropagation(NodeMCTS newNode, int score, int nbSim)
     {
         if (newNode.GetParent() != null)
         {
             NodeMCTS parent = newNode.GetParent();
-            parent.SetWin(parent.GetWin() + nbVic);
+            parent.SetWin(parent.GetWin() + score);
             parent.SetNumberVisit(parent.GetNumberVisit() + nbSim);
             Backpropagation(parent, parent.GetWin(), parent.GetNumberVisit());
         }
@@ -164,15 +166,19 @@ public class MCTSController : MonoBehaviour
 
     private void getListAction()
     {
-        int pos_x = Mathf.RoundToInt(-this.transform.position.z);
-        int pos_y = Mathf.RoundToInt(this.transform.position.x);
+        int pos_x = Mathf.RoundToInt(-this.transform.position.z) + 1;
+        int pos_y = Mathf.RoundToInt(this.transform.position.x) + 1;
+
+        char[][] bombMap = currentGameState.bombBoard;
         
         MoveToPlay.Clear();
 
         char[][] map = currentGameState.GetBoard();
         
         MoveToPlay.Add(BombermanState.PlayerAction.DoNothing);
-        MoveToPlay.Add(BombermanState.PlayerAction.PutBomb);
+        
+        if(inBoard(pos_x,pos_y) && bombMap[pos_x][pos_y] == '_')
+            MoveToPlay.Add(BombermanState.PlayerAction.PutBomb);
         
         if(inBoard(pos_x,pos_y-1) && (map[pos_x][pos_y-1] != 'M' && map[pos_x][pos_y-1] != '0'))
             MoveToPlay.Add(BombermanState.PlayerAction.GoLeft);
@@ -187,10 +193,10 @@ public class MCTSController : MonoBehaviour
             MoveToPlay.Add(BombermanState.PlayerAction.GoUp);
     }
 
-    private List<BombermanState.PlayerAction> getListAction(char[][] map)
+    private List<BombermanState.PlayerAction> getListAction(char[][] map, char[][] bombMap)
     {
         List<BombermanState.PlayerAction> moveToPlay = new List<BombermanState.PlayerAction>();
-        int pos_x = 0, pos_y = 0;
+        int pos_x = -1, pos_y = -1;
         for (int i = 0; i < 15; i++)
         {
             for (int j = 0; j < 25; j++)
@@ -204,7 +210,9 @@ public class MCTSController : MonoBehaviour
         }
         
         moveToPlay.Add(BombermanState.PlayerAction.DoNothing);
-        moveToPlay.Add(BombermanState.PlayerAction.PutBomb);
+        
+        if(inBoard(pos_x,pos_y) && bombMap[pos_x][pos_y] == '_')
+            moveToPlay.Add(BombermanState.PlayerAction.PutBomb);
             
         if(inBoard(pos_x,pos_y-1) && (map[pos_x][pos_y-1] != 'M' && map[pos_x][pos_y-1] != '0'))
             moveToPlay.Add(BombermanState.PlayerAction.GoLeft);
@@ -224,7 +232,7 @@ public class MCTSController : MonoBehaviour
     //Permet de simuler l'action sur le gamestate passe en parametre puis d'en retourner une copie avec l'action effectuee
     private GameState ApplyAction(GameState state, BombermanState.PlayerAction act)
     {
-        GameState newGameState = state.Copy();
+        GameState newGameState = (GameState) state.Clone();
         switch (act)
         {
             case BombermanState.PlayerAction.DoNothing:
@@ -232,16 +240,16 @@ public class MCTSController : MonoBehaviour
             case BombermanState.PlayerAction.GoLeft :
                 MoveLeft(state);
                 break;
-            case BombermanState.PlayerAction.GoRight : 
+            case BombermanState.PlayerAction.GoRight :
                 MoveRight(state);
                 break;
             case BombermanState.PlayerAction.GoUp :
                 MoveUp(state);
                 break;
-            case BombermanState.PlayerAction.GoDown : 
+            case BombermanState.PlayerAction.GoDown :
                 MoveDown(state);
                 break;
-            case BombermanState.PlayerAction.PutBomb : 
+            case BombermanState.PlayerAction.PutBomb :
                 PutBomb(state);
                 break;
             default:
@@ -254,44 +262,44 @@ public class MCTSController : MonoBehaviour
     // Fonctions pour simuler les actions de l'ia
     private void MoveLeft(GameState state)
     {
-        int pos_x = Mathf.RoundToInt(-this.transform.position.z);
-        int pos_y = Mathf.RoundToInt(this.transform.position.x);
+        int pos_x = Mathf.RoundToInt(-this.transform.position.z) + 1;
+        int pos_y = Mathf.RoundToInt(this.transform.position.x) + 1;
 
-        currentGameState.board[pos_x][pos_y] = 'L';
+        currentGameState.board[pos_x][pos_y] = '_';
         currentGameState.board[pos_x][pos_y - 1] = 'B';
     }
 
     private void MoveRight(GameState state)
     {
-        int pos_x = Mathf.RoundToInt(-this.transform.position.z);
-        int pos_y = Mathf.RoundToInt(this.transform.position.x);
+        int pos_x = Mathf.RoundToInt(-this.transform.position.z) + 1;
+        int pos_y = Mathf.RoundToInt(this.transform.position.x) + 1;
 
-        currentGameState.board[pos_x][pos_y] = 'L';
+        currentGameState.board[pos_x][pos_y] = '_';
         currentGameState.board[pos_x][pos_y + 1] = 'B';
     }
     
     private void MoveUp(GameState state)
     {
-        int pos_x = Mathf.RoundToInt(-this.transform.position.z);
-        int pos_y = Mathf.RoundToInt(this.transform.position.x);
+        int pos_x = Mathf.RoundToInt(-this.transform.position.z) + 1;
+        int pos_y = Mathf.RoundToInt(this.transform.position.x) + 1;
 
-        currentGameState.board[pos_x][pos_y] = 'L';
+        currentGameState.board[pos_x][pos_y] = '_';
         currentGameState.board[pos_x - 1][pos_y] = 'B';
     }
     
     private void MoveDown(GameState state)
     {
-        int pos_x = Mathf.RoundToInt(-this.transform.position.z);
-        int pos_y = Mathf.RoundToInt(this.transform.position.x);
+        int pos_x = Mathf.RoundToInt(-this.transform.position.z) + 1;
+        int pos_y = Mathf.RoundToInt(this.transform.position.x) + 1;
         
-        currentGameState.board[pos_x][pos_y] = 'L';
+        currentGameState.board[pos_x][pos_y] = '_';
         currentGameState.board[pos_x + 1][pos_y] = 'B';
     }
     
     private void PutBomb(GameState state)
     {
-        int pos_x = Mathf.RoundToInt(-this.transform.position.z);
-        int pos_y = Mathf.RoundToInt(this.transform.position.x);
+        int pos_x = Mathf.RoundToInt(-this.transform.position.z) + 1;
+        int pos_y = Mathf.RoundToInt(this.transform.position.x) + 1;
         
         currentGameState.bombBoard[pos_x][pos_y] = '3';
     }
@@ -335,19 +343,15 @@ public class MCTSController : MonoBehaviour
                 break;
             case BombermanState.PlayerAction.GoLeft :
                 moveInput = new Vector3(-1, 0, 0);
-                MoveLeft(currentGameState);
                 break;
             case BombermanState.PlayerAction.GoRight :
                 moveInput = new Vector3(1, 0, 0);
-                MoveRight(currentGameState);
                 break;
             case BombermanState.PlayerAction.GoUp :
                 moveInput = new Vector3(0, 0, 1);
-                MoveUp(currentGameState);
                 break;
             case BombermanState.PlayerAction.GoDown : 
                 moveInput = new Vector3(0, 0, -1);
-                MoveDown(currentGameState);
                 break;
             case BombermanState.PlayerAction.PutBomb : 
                 GameObject newBomb = Instantiate(Bomb);
@@ -361,7 +365,7 @@ public class MCTSController : MonoBehaviour
             default:
                 break;
         }
-        _rigidbody.velocity = new Vector3(moveInput.x, 0, moveInput.y) * moveSpeed;
+        _rigidbody.velocity = new Vector3(moveInput.x, 0, moveInput.z) * moveSpeed;
     }
     
 }

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
@@ -8,7 +9,8 @@ using UnityEngine.InputSystem.Users;
 public class GameInitialization : MonoBehaviour
 {
     [SerializeField] private GameConfig _gameConfig;
-    [SerializeField] private Transform blocList;
+    public Transform blocList;
+    public Transform playerList;
     [SerializeField] private GameObject blocPrefab;
 
     [SerializeField] private GameObject player1Prefab;
@@ -19,9 +21,16 @@ public class GameInitialization : MonoBehaviour
     [SerializeField] private Transform spawnPointPlayer1;
     [SerializeField] private Transform spawnPointPlayer2;
 
-    [HideInInspector] public static GameObject[][] mapObjet;
-    [HideInInspector] public static char[][] map;
+    public static GameObject[][] mapObjet;
+    public static char[][] map;
     private string filename;
+
+    public static GameInitialization instance;
+    
+    private void Awake()
+    {
+        instance = this;
+    }
 
     void Start()
     {
@@ -35,18 +44,18 @@ public class GameInitialization : MonoBehaviour
     {
         if (_gameConfig.player1 == _gameConfig.player2 && _gameConfig.player1 == PlayerType.Human)
         {
-            GameManager.instance.player1 = Instantiate(player1Prefab, spawnPointPlayer1.position, spawnPointPlayer1.rotation);
-            GameManager.instance.player2 = Instantiate(player2Prefab, spawnPointPlayer2.position, spawnPointPlayer2.rotation);
+            GameManager.instance.player1 = Instantiate(player1Prefab, spawnPointPlayer1.position, spawnPointPlayer1.rotation, playerList);
+            GameManager.instance.player2 = Instantiate(player2Prefab, spawnPointPlayer2.position, spawnPointPlayer2.rotation, playerList);
         }
         else
         {
-            GameManager.instance.player1 = SpawnPlayer(_gameConfig.player1, spawnPointPlayer1);
-            GameManager.instance.player2 = SpawnPlayer(_gameConfig.player2, spawnPointPlayer2);
+            GameManager.instance.player1 = SpawnPlayer(_gameConfig.player1, spawnPointPlayer1, playerList);
+            GameManager.instance.player2 = SpawnPlayer(_gameConfig.player2, spawnPointPlayer2, playerList);
         }
 
         if (_gameConfig.player1 == PlayerType.MCTS)
             GameManager.instance.player1.GetComponent<MCTSController>().playerChar = 'A';
-        if(_gameConfig.player2 == PlayerType.MCTS)
+        if (_gameConfig.player2 == PlayerType.MCTS)
             GameManager.instance.player2.GetComponent<MCTSController>().playerChar = 'B';
     }
 
@@ -145,7 +154,7 @@ public class GameInitialization : MonoBehaviour
         }
     }
 
-    private GameObject SpawnPlayer(PlayerType playerType, Transform transform)
+    private GameObject SpawnPlayer(PlayerType playerType, Transform transform, Transform parent)
     {
         GameObject prefabToSpawn = null;
         switch (playerType)
@@ -163,6 +172,6 @@ public class GameInitialization : MonoBehaviour
                 prefabToSpawn = MCTSIAPrefab;
                 break;
         }
-        return Instantiate(prefabToSpawn, transform.position, transform.rotation);
+        return Instantiate(prefabToSpawn, transform.position, transform.rotation, parent);
     }
 }
