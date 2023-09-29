@@ -34,7 +34,7 @@ public class NodeMCTS
     public NodeMCTS(GameState currentState)
     {
         this.parent = null;
-        this.children = null;
+        this.children = new List<NodeMCTS>();
         this.nbWin = 0;
         this._gameState = currentState;
         this.currentAct = BombermanState.PlayerAction.DoNothing;
@@ -43,7 +43,7 @@ public class NodeMCTS
     public NodeMCTS(GameState currentState, NodeMCTS parent, BombermanState.PlayerAction selectAct)
     {
         this.parent = parent;
-        this.children = null;
+        this.children = new List<NodeMCTS>();
         this.nbWin = 0;
         this._gameState = currentState;
         this.currentAct = selectAct;

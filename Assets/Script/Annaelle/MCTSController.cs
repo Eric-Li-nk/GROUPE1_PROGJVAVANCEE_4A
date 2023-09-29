@@ -84,8 +84,11 @@ public class MCTSController : MonoBehaviour
     private NodeMCTS Selection()
     {
         //si le noeud n'a pas d'enfant, on retoure le noeud de depart
-        if (StartNode.GetChild() == null)
+        if (StartNode.GetChild().Count == 0)
+        {
             return StartNode;
+        }
+            
         
         /*
          * creation d"un nombre aleatoire pour choisir si on effectue une exploration ou une exploitation
@@ -256,8 +259,8 @@ public class MCTSController : MonoBehaviour
 
     private void MoveLeft(GameState state)
     {
-        int pos_x = Mathf.RoundToInt(this.transform.position.x);
-        int pos_y = Mathf.RoundToInt(this.transform.position.y);
+        int pos_y = Mathf.RoundToInt(this.transform.position.x);
+        int pos_x = Mathf.RoundToInt(this.transform.position.y);
 
         char[][] map = currentGameState.GetBoard();
 
@@ -267,8 +270,8 @@ public class MCTSController : MonoBehaviour
 
     private void MoveRight(GameState state)
     {
-        int pos_x = Mathf.RoundToInt(this.transform.position.x);
-        int pos_y = Mathf.RoundToInt(this.transform.position.y);
+        int pos_y = Mathf.RoundToInt(this.transform.position.x);
+        int pos_x = Mathf.RoundToInt(this.transform.position.y);
 
         char[][] map = currentGameState.GetBoard();
 
@@ -278,8 +281,8 @@ public class MCTSController : MonoBehaviour
     
     private void MoveUp(GameState state)
     {
-        int pos_x = Mathf.RoundToInt(this.transform.position.x);
-        int pos_y = Mathf.RoundToInt(this.transform.position.y);
+        int pos_y = Mathf.RoundToInt(this.transform.position.x);
+        int pos_x = Mathf.RoundToInt(this.transform.position.y);
 
         char[][] map = currentGameState.GetBoard();
 
@@ -289,8 +292,8 @@ public class MCTSController : MonoBehaviour
     
     private void MoveDown(GameState state)
     {
-        int pos_x = Mathf.RoundToInt(this.transform.position.x);
-        int pos_y = Mathf.RoundToInt(this.transform.position.y);
+        int pos_y = Mathf.RoundToInt(this.transform.position.x);
+        int pos_x = Mathf.RoundToInt(this.transform.position.y);
 
         char[][] map = currentGameState.GetBoard();
 
@@ -300,9 +303,9 @@ public class MCTSController : MonoBehaviour
     
     private void PutBomb(GameState state)
     {
-        int pos_x = Mathf.RoundToInt(this.transform.position.x);
-        int pos_y = Mathf.RoundToInt(this.transform.position.y);
-
+        int pos_y = Mathf.RoundToInt(this.transform.position.x);
+        int pos_x = Mathf.RoundToInt(this.transform.position.y);
+        
         currentGameState.bombBoard[pos_x][pos_y] = '3';
     }
     
