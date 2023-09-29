@@ -170,7 +170,7 @@ public class MCTSController : MonoBehaviour
         MoveToPlay.Clear();
 
         char[][] map = currentGameState.GetBoard();
-        //if (map[pos_x][pos_y] == 'A')
+        
         MoveToPlay.Add(BombermanState.PlayerAction.DoNothing);
         MoveToPlay.Add(BombermanState.PlayerAction.PutBomb);
         
@@ -203,7 +203,6 @@ public class MCTSController : MonoBehaviour
             }
         }
         
-        //if (map[pos_x][pos_y] == 'A')
         moveToPlay.Add(BombermanState.PlayerAction.DoNothing);
         moveToPlay.Add(BombermanState.PlayerAction.PutBomb);
             
@@ -221,7 +220,8 @@ public class MCTSController : MonoBehaviour
         
         return moveToPlay;
     }
-    
+
+    //Permet de simuler l'action sur le gamestate passe en parametre puis d'en retourner une copie avec l'action effectuee
     private GameState ApplyAction(GameState state, BombermanState.PlayerAction act)
     {
         GameState newGameState = state.Copy();
@@ -251,6 +251,7 @@ public class MCTSController : MonoBehaviour
         return newGameState;
     }
 
+    // Fonctions pour simuler les actions de l'ia
     private void MoveLeft(GameState state)
     {
         int pos_x = Mathf.RoundToInt(-this.transform.position.z);
@@ -294,7 +295,8 @@ public class MCTSController : MonoBehaviour
         
         currentGameState.bombBoard[pos_x][pos_y] = '3';
     }
-    
+
+    //Fonction pour selectionner une action aleatoire selon la liste d'action passee en parametre
     private BombermanState.PlayerAction selectRandAct(List<BombermanState.PlayerAction> acts)
     {
         int nbRand = Random.Range(0, acts.Count);
@@ -323,6 +325,7 @@ public class MCTSController : MonoBehaviour
         return bestChild;
     }
 
+    //Fonction pour que l'ia effectuer les vraies actions
     private void PlayAction(BombermanState.PlayerAction act)
     {
         Vector3 moveInput = Vector3.zero;
