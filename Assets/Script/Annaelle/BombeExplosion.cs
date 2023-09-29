@@ -20,6 +20,8 @@ public class BombeExplosion : MonoBehaviour
         StartCoroutine(ScaleRayon(rayonAvant, Vector3.up));
         StartCoroutine(ScaleRayon(rayonGauche, Vector3.left));
     }
+    // Augmente la taille des cylindres contenus dans la bombe pour pouvoir simuler le rayon d'explosion avec les colliders et ainsi avoir un visuel sur Unity
+    // Ne marche pas pour le MCTS
     IEnumerator ScaleRayon(GameObject go, Vector3 direction)
     {
         Vector3 localScaleA = go.transform.localScale;
