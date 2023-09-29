@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class GameInitialization : MonoBehaviour
 {
@@ -10,7 +11,6 @@ public class GameInitialization : MonoBehaviour
     [SerializeField] private GameObject blocPrefab;
 
     [SerializeField] private GameObject playerPrefab;
-    [SerializeField] private GameObject player2Prefab;
     [SerializeField] private GameObject RandomIAPrefab;
     [SerializeField] private GameObject MCTSIAPrefab;
 
@@ -28,7 +28,9 @@ public class GameInitialization : MonoBehaviour
         if (_gameConfig.player1 == _gameConfig.player2 && _gameConfig.player1 == PlayerType.Human)
         {
             Temporarycontrols.instance.player1 = Instantiate(playerPrefab, spawnPointPlayer1.position, spawnPointPlayer1.rotation);
-            Temporarycontrols.instance.player2 = Instantiate(player2Prefab, spawnPointPlayer2.position, spawnPointPlayer2.rotation);
+            Temporarycontrols.instance.player2 = Instantiate(playerPrefab, spawnPointPlayer2.position, spawnPointPlayer2.rotation);
+            Temporarycontrols.instance.player2.GetComponent<PlayerInput>().SwitchCurrentActionMap("Player 2");
+            
         }
         else
         {

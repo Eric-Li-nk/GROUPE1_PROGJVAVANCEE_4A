@@ -231,6 +231,14 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 3c7687af-5822-445d-b800-1eec43d149ec
     m_ActionName: Player/Open Menu[/Keyboard/escape]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 08cf2c48-f1cf-4464-9433-f9f53e86fd55
+    m_ActionName: Player/Move[/Keyboard/w,/Keyboard/s,/Keyboard/a,/Keyboard/d,/Keyboard/upArrow,/Keyboard/rightArrow,/Keyboard/leftArrow]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: eefa8b69-67fc-41e3-8ba2-e87060427362
+    m_ActionName: Player/Place Bomb[/Keyboard/space,/Keyboard/numpad0]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
