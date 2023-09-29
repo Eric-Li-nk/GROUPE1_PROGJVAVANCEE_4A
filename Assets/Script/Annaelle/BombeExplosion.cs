@@ -16,6 +16,9 @@ public class BombeExplosion : MonoBehaviour
         StartCoroutine(ScaleRayon(rayonAvant, Vector3.up));
         StartCoroutine(ScaleRayon(rayonGauche, Vector3.left));
     }
+    /*
+     * fonction qui agrandi les cylindres contenus dans la bombe pour gerer la collision et l'explosion de cette derniere.
+     */
     IEnumerator ScaleRayon(GameObject go, Vector3 direction)
     {
         Vector3 localScaleA = go.transform.localScale;

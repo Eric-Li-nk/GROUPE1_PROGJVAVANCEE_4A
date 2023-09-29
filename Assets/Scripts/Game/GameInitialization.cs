@@ -22,7 +22,9 @@ public class GameInitialization : MonoBehaviour
         SpawnBlocs();
         SpawnPlayers();
     }
-
+    /*
+     * fonction pour instancier les différents joueurs (selon leur type) aux endroits prévus à cet effet.
+     */
     private void SpawnPlayers()
     {
         if (_gameConfig.player1 == _gameConfig.player2 && _gameConfig.player1 == PlayerType.Human)
@@ -58,6 +60,9 @@ public class GameInitialization : MonoBehaviour
         return Instantiate(prefabToSpawn, transform.position, transform.rotation);
     }
 
+    /*
+     * fonction pour instancier les blocs destrutibles sur la map, selon le fihcier texte map1.txt si la case parcourue contient un '0'
+     */
     private void SpawnBlocs()
     {
         string fileName = "Assets/Map/map1.txt";

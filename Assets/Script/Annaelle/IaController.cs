@@ -7,6 +7,7 @@ using Random = UnityEngine.Random;
 public class IaController : MonoBehaviour
 {
     private int randAct;
+    //emplacement ou faire apparaitre la bombe
     [SerializeField] private GameObject placeBomb;
     [SerializeField] private GameObject Bomb;
 
@@ -21,6 +22,7 @@ public class IaController : MonoBehaviour
 
     void Update()
     {
+        //selection aléatoire d"une action à jouer.
         randAct = Random.Range(0, 5);
         Vector3 moveInput = Vector3.zero;
         switch (randAct)

@@ -45,6 +45,5 @@ public class GameloopScript : MonoBehaviour
             MenuFin.SetActive(true);
         }
        
-        //game.Reset();
     }
 }
