@@ -13,8 +13,8 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] private TMP_Text endingText;
 
-    public GameObject player1;
-    public GameObject player2;
+    [HideInInspector] public GameObject player1;
+    [HideInInspector] public GameObject player2;
 
     public static GameManager instance;
 
@@ -58,7 +58,7 @@ public class GameManager : MonoBehaviour
         StartCoroutine(ChangeText());
     }
 
-    public IEnumerator ChangeText()
+    private IEnumerator ChangeText()
     {
         yield return new WaitForSeconds(0.05f);
         if (player1 == null)
