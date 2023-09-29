@@ -1,10 +1,11 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
-public class NodeMCTS : MonoBehaviour
+public class NodeMCTS
 {
     private NodeMCTS parent;
 
@@ -17,16 +18,14 @@ public class NodeMCTS : MonoBehaviour
     private GameState _gameState;
 
     private BombermanState.PlayerAction currentAct;
+
+    public char playerChar;
     
     public NodeMCTS(NodeMCTS parent, List<NodeMCTS> children, int nbWin, GameState gameState, BombermanState.PlayerAction currentAct)
     {
         this.parent = parent;
-        
-        for (int i = 0; i < children.Count; i++)
-        {
-            this.children.Add(children[i]);
-        }
-        
+        this.children = children;
+
         this.nbWin = nbWin;
         _gameState = gameState;
         this.currentAct = currentAct;

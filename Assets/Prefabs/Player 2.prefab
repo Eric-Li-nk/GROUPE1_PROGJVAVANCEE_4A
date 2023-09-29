@@ -55,6 +55,11 @@ PrefabInstance:
       propertyPath: placeBomb
       value: 
       objectReference: {fileID: 7681779381560721615}
+    - target: {fileID: 845520929064790909, guid: 54a281ec4e7760849aacb3746e4def08,
+        type: 3}
+      propertyPath: playerChar
+      value: 68
+      objectReference: {fileID: 0}
     - target: {fileID: 972822969045191311, guid: 54a281ec4e7760849aacb3746e4def08,
         type: 3}
       propertyPath: m_LocalPosition.x

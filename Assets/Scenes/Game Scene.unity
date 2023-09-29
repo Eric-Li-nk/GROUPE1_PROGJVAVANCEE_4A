@@ -170,7 +170,7 @@ MonoBehaviour:
     type: 3}
   RandomIAPrefab: {fileID: 4690185540482525878, guid: e1aee0dd0343dc84c911afbc299001f3,
     type: 3}
-  MCTSIAPrefab: {fileID: 4690185540482525878, guid: e3c3dea13b8bf424fb0c0415791484c8,
+  MCTSIAPrefab: {fileID: 4690185540482525878, guid: d46d77365049bfa4fa5cfeabb06b2058,
     type: 3}
   spawnPointPlayer1: {fileID: 853986616}
   spawnPointPlayer2: {fileID: 620343567}
@@ -239,18 +239,6 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: eefa8b69-67fc-41e3-8ba2-e87060427362
     m_ActionName: Player/Place Bomb[/Keyboard/space,/Keyboard/numpad0]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 334b9198-afe5-42c7-a073-820fafbcf7c8
-    m_ActionName: Player 2/Move[/Keyboard/upArrow,/Keyboard/downArrow,/Keyboard/leftArrow,/Keyboard/rightArrow]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 0bba42f2-dbb1-40af-b5ec-1717d4168d7e
-    m_ActionName: Player 2/Place Bomb[/Keyboard/numpad0]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: f49651d6-66c1-4a54-b1ba-a638ecc991d6
-    m_ActionName: Player 2/Open Menu[/Keyboard/escape]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player 1

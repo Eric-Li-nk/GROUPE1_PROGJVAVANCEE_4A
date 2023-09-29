@@ -43,6 +43,11 @@ public class GameInitialization : MonoBehaviour
             GameManager.instance.player1 = SpawnPlayer(_gameConfig.player1, spawnPointPlayer1);
             GameManager.instance.player2 = SpawnPlayer(_gameConfig.player2, spawnPointPlayer2);
         }
+
+        if (_gameConfig.player1 == PlayerType.MCTS)
+            GameManager.instance.player1.GetComponent<MCTSController>().playerChar = 'A';
+        if(_gameConfig.player2 == PlayerType.MCTS)
+            GameManager.instance.player2.GetComponent<MCTSController>().playerChar = 'B';
     }
 
     private IEnumerator DestroyBlocs()
@@ -130,7 +135,7 @@ public class GameInitialization : MonoBehaviour
             filename = "Assets/Map/MapPVP.txt";
         }
         else if((joueur1 == PlayerType.Human && joueur2 == PlayerType.Random) || (joueur1 == PlayerType.Human && joueur2 == PlayerType.MCTS)){
-            filename = "Assets/Map/MPvIA.txt";
+            filename = "Assets/Map/MapPvIA.txt";
         }
         else if((joueur1 == PlayerType.Random && joueur2 == PlayerType.Random) || (joueur1 == PlayerType.Random && joueur2 == PlayerType.MCTS) || (joueur1 == PlayerType.MCTS && joueur2 == PlayerType.MCTS) || (joueur1 == PlayerType.MCTS && joueur2 == PlayerType.Random)){
             filename = "Assets/Map/MapIAvIA.txt";

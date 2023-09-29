@@ -14,6 +14,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private GameObject Bomb;
 
     [SerializeField] private float moveSpeed;
+
+    public char playerChar;
     
     private char[][] map = new char[25][];
     

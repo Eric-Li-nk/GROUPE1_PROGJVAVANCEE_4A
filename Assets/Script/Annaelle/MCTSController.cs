@@ -22,6 +22,8 @@ public class MCTSController : MonoBehaviour
     
     //list de tous les mouvements possibles
     private List<BombermanState.PlayerAction> MoveToPlay;
+
+    public char playerChar;
     
     //emplacement de la bombe
     [SerializeField] private GameObject placeBomb;
@@ -43,6 +45,8 @@ public class MCTSController : MonoBehaviour
     {
         //initialisation du gameState
         currentGameState = new GameState();
+        StartNode = new NodeMCTS(currentGameState);
+        MoveToPlay = new List<BombermanState.PlayerAction>();
         _rigidbody = GetComponent<Rigidbody>();
     }
 
@@ -101,7 +105,7 @@ public class MCTSController : MonoBehaviour
             List<NodeMCTS> children = StartNode.GetChild();
             return children[rand];
         }
-        
+
         //exploiter (best noeud)
         NodeMCTS best = GetBestScore(StartNode);
         return best;
@@ -132,6 +136,14 @@ public class MCTSController : MonoBehaviour
         for (int i = 0; i < nbSimulation; i++)
         {
             BombermanState.PlayerAction selectAction = selectRandAct(MoveToPlay);
+            GameState copyCurrentGamestate = currentGameState.Copy();
+            while (copyCurrentGamestate.IsGameOver())
+            {
+                copyCurrentGamestate.RefreshBoard();
+                copyCurrentGamestate.PlayAction(selectRandAct(getListAction(copyCurrentGamestate.GetBoard())));
+            }
+
+            nbWin += copyCurrentGamestate.win;
         }
 
         return nbWin;
@@ -147,30 +159,72 @@ public class MCTSController : MonoBehaviour
             Backpropagation(parent, parent.GetWin(), parent.GetNumberVisit());
         }
     }
+    
+    private bool inBoard(int row, int col)
+    {
+        return row is >= 0 and < 15 && col is >= 0 and < 25;
+    }
 
     private void getListAction()
     {
         int pos_x = (int)Math.Floor(this.transform.position.x);
         int pos_y = (int)Math.Floor(this.transform.position.y);
 
+        MoveToPlay.Clear();
+
         char[][] map = currentGameState.GetBoard();
         //if (map[pos_x][pos_y] == 'A')
         MoveToPlay.Add(BombermanState.PlayerAction.DoNothing);
         MoveToPlay.Add(BombermanState.PlayerAction.PutBomb);
-            
-        if(map[pos_x-1][pos_y] != 'M' || map[pos_x-1][pos_y] != '0' || map[pos_x-1][pos_y] != '3')
+        
+        if(inBoard(pos_x,pos_y-1) && (map[pos_x][pos_y-1] != 'M' || map[pos_x][pos_y-1] != '0'))
             MoveToPlay.Add(BombermanState.PlayerAction.GoLeft);
             
-        if(map[pos_x-1][pos_y] != 'M' || map[pos_x-1][pos_y] != '0' || map[pos_x-1][pos_y] != '3')
+        if(inBoard(pos_x,pos_y+1) && (map[pos_x][pos_y+1] != 'M' || map[pos_x][pos_y+1] != '0'))
             MoveToPlay.Add(BombermanState.PlayerAction.GoRight);
             
-        if(map[pos_x-1][pos_y] != 'M' || map[pos_x-1][pos_y] != '0' || map[pos_x-1][pos_y] != '3')
+        if(inBoard(pos_x+1,pos_y) && (map[pos_x+1][pos_y] != 'M' || map[pos_x+1][pos_y] != '0'))
             MoveToPlay.Add(BombermanState.PlayerAction.GoDown);
             
-        if(map[pos_x-1][pos_y] != 'M' || map[pos_x-1][pos_y] != '0'|| map[pos_x-1][pos_y] != '3')
+        if(inBoard(pos_x-1,pos_y) && (map[pos_x-1][pos_y] != 'M' || map[pos_x-1][pos_y] != '0'))
             MoveToPlay.Add(BombermanState.PlayerAction.GoUp);
     }
 
+    private List<BombermanState.PlayerAction> getListAction(char[][] map)
+    {
+        List<BombermanState.PlayerAction> moveToPlay = new List<BombermanState.PlayerAction>();
+        int pos_x = 0, pos_y = 0;
+        for (int i = 0; i < 15; i++)
+        {
+            for (int j = 0; j < 25; j++)
+            {
+                if (map[i][j] == playerChar)
+                {
+                    pos_x = i;
+                    pos_y = j;
+                }
+            }
+        }
+        
+        //if (map[pos_x][pos_y] == 'A')
+        moveToPlay.Add(BombermanState.PlayerAction.DoNothing);
+        moveToPlay.Add(BombermanState.PlayerAction.PutBomb);
+            
+        if(inBoard(pos_x,pos_y-1) && (map[pos_x][pos_y-1] != 'M' || map[pos_x][pos_y-1] != '0'))
+            moveToPlay.Add(BombermanState.PlayerAction.GoLeft);
+            
+        if(inBoard(pos_x,pos_y+1) && (map[pos_x][pos_y+1] != 'M' || map[pos_x][pos_y+1] != '0'))
+            moveToPlay.Add(BombermanState.PlayerAction.GoRight);
+            
+        if(inBoard(pos_x+1,pos_y) && (map[pos_x+1][pos_y] != 'M' || map[pos_x+1][pos_y] != '0'))
+            moveToPlay.Add(BombermanState.PlayerAction.GoDown);
+            
+        if(inBoard(pos_x-1,pos_y) && (map[pos_x-1][pos_y] != 'M' || map[pos_x-1][pos_y] != '0'))
+            moveToPlay.Add(BombermanState.PlayerAction.GoUp);
+        
+        return moveToPlay;
+    }
+    
     private GameState ApplyAction(GameState state, BombermanState.PlayerAction act)
     {
         GameState newGameState = state.Copy();
@@ -202,41 +256,19 @@ public class MCTSController : MonoBehaviour
 
     private void MoveLeft(GameState state)
     {
-        int pos_x = (int)Math.Floor(this.transform.position.x);
-        int pos_y = (int)Math.Floor(this.transform.position.y);
-
-        char[][] map = currentGameState.GetBoard();
-
-        map[pos_x][pos_y] = 'L';
-        map[pos_x - 1][pos_y] = 'B';
-    }
-
-    private void MoveRight(GameState state)
-    {
-        int pos_x = (int)Math.Floor(this.transform.position.x);
-        int pos_y = (int)Math.Floor(this.transform.position.y);
-
-        char[][] map = currentGameState.GetBoard();
-
-        map[pos_x][pos_y] = 'L';
-        map[pos_x + 1][pos_y] = 'B';
-    }
-    
-    private void MoveUp(GameState state)
-    {
-        int pos_x = (int)Math.Floor(this.transform.position.x);
-        int pos_y = (int)Math.Floor(this.transform.position.y);
+        int pos_x = Mathf.RoundToInt(this.transform.position.x);
+        int pos_y = Mathf.RoundToInt(this.transform.position.y);
 
         char[][] map = currentGameState.GetBoard();
 
         map[pos_x][pos_y] = 'L';
         map[pos_x][pos_y - 1] = 'B';
     }
-    
-    private void MoveDown(GameState state)
+
+    private void MoveRight(GameState state)
     {
-        int pos_x = (int)Math.Floor(this.transform.position.x);
-        int pos_y = (int)Math.Floor(this.transform.position.y);
+        int pos_x = Mathf.RoundToInt(this.transform.position.x);
+        int pos_y = Mathf.RoundToInt(this.transform.position.y);
 
         char[][] map = currentGameState.GetBoard();
 
@@ -244,14 +276,34 @@ public class MCTSController : MonoBehaviour
         map[pos_x][pos_y + 1] = 'B';
     }
     
-    private void PutBomb(GameState state)
+    private void MoveUp(GameState state)
     {
-        int pos_x = (int)Math.Floor(this.transform.position.x);
-        int pos_y = (int)Math.Floor(this.transform.position.y);
+        int pos_x = Mathf.RoundToInt(this.transform.position.x);
+        int pos_y = Mathf.RoundToInt(this.transform.position.y);
 
         char[][] map = currentGameState.GetBoard();
 
-        map[pos_x][pos_y] = '3';
+        map[pos_x][pos_y] = 'L';
+        map[pos_x - 1][pos_y] = 'B';
+    }
+    
+    private void MoveDown(GameState state)
+    {
+        int pos_x = Mathf.RoundToInt(this.transform.position.x);
+        int pos_y = Mathf.RoundToInt(this.transform.position.y);
+
+        char[][] map = currentGameState.GetBoard();
+
+        map[pos_x][pos_y] = 'L';
+        map[pos_x + 1][pos_y] = 'B';
+    }
+    
+    private void PutBomb(GameState state)
+    {
+        int pos_x = Mathf.RoundToInt(this.transform.position.x);
+        int pos_y = Mathf.RoundToInt(this.transform.position.y);
+
+        currentGameState.bombBoard[pos_x][pos_y] = '3';
     }
     
     private BombermanState.PlayerAction selectRandAct(List<BombermanState.PlayerAction> acts)
