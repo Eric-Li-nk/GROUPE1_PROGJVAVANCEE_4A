@@ -6,7 +6,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 
-public class Temporarycontrols : MonoBehaviour
+public class GameManager : MonoBehaviour
 {
     [SerializeField] private GameObject menuCanvas;
     [SerializeField] private GameObject gameoverCanvas;
@@ -16,7 +16,7 @@ public class Temporarycontrols : MonoBehaviour
     public GameObject player1;
     public GameObject player2;
 
-    public static Temporarycontrols instance;
+    public static GameManager instance;
 
     private void Awake()
     {

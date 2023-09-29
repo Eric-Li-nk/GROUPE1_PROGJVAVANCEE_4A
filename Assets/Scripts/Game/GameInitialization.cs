@@ -27,15 +27,15 @@ public class GameInitialization : MonoBehaviour
     {
         if (_gameConfig.player1 == _gameConfig.player2 && _gameConfig.player1 == PlayerType.Human)
         {
-            Temporarycontrols.instance.player1 = Instantiate(playerPrefab, spawnPointPlayer1.position, spawnPointPlayer1.rotation);
-            Temporarycontrols.instance.player2 = Instantiate(playerPrefab, spawnPointPlayer2.position, spawnPointPlayer2.rotation);
-            Temporarycontrols.instance.player2.GetComponent<PlayerInput>().SwitchCurrentActionMap("Player 2");
+            GameManager.instance.player1 = Instantiate(playerPrefab, spawnPointPlayer1.position, spawnPointPlayer1.rotation);
+            GameManager.instance.player2 = Instantiate(playerPrefab, spawnPointPlayer2.position, spawnPointPlayer2.rotation);
+            GameManager.instance.player2.GetComponent<PlayerInput>().SwitchCurrentActionMap("Player 2");
             
         }
         else
         {
-            Temporarycontrols.instance.player1 = SpawnPlayer(_gameConfig.player1, spawnPointPlayer1);
-            Temporarycontrols.instance.player2 = SpawnPlayer(_gameConfig.player2, spawnPointPlayer2);
+            GameManager.instance.player1 = SpawnPlayer(_gameConfig.player1, spawnPointPlayer1);
+            GameManager.instance.player2 = SpawnPlayer(_gameConfig.player2, spawnPointPlayer2);
         }
     }
 

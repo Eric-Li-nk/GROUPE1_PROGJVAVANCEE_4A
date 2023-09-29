@@ -28,7 +28,7 @@ public class RayonCollider : MonoBehaviour
             this.gameObject.SetActive(false);
             Destroy(collision.gameObject);
             if (collision.transform.tag == "Player")
-                Temporarycontrols.instance.GameOver();
+                GameManager.instance.GameOver();
         }
 	this.gameObject.SetActive(false);
     }
