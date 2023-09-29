@@ -6,34 +6,29 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 
-public class Temporarycontrols : MonoBehaviour
+public class GameManager : MonoBehaviour
 {
     [SerializeField] private GameObject menuCanvas;
     [SerializeField] private GameObject gameoverCanvas;
 
     [SerializeField] private TMP_Text endingText;
 
-    public GameObject player1;
-    public GameObject player2;
+    [HideInInspector] public GameObject player1;
+    [HideInInspector] public GameObject player2;
 
-    public static Temporarycontrols instance;
+    private bool isGameOver = false;
+
+    public static GameManager instance;
 
     private void Awake()
     {
         instance = this;
     }
 
-    public void OpenMenu(InputAction.CallbackContext context)
+    public void OnOpenMenu(InputAction.CallbackContext context)
     {
-        menuCanvas.SetActive(!menuCanvas.activeSelf);
-        if (menuCanvas.activeSelf)
-        {
-            Time.timeScale = 1f;
-        }
-        else
-        {
-            Time.timeScale = 0f;
-        }
+        if(context.performed)
+            OpenMenu(menuCanvas);
     }
 
     public void Return()
@@ -44,23 +39,35 @@ public class Temporarycontrols : MonoBehaviour
 
     public void Restart()
     {
+        Time.timeScale = 1f;
         SceneManager.LoadScene("Game Scene");
     }
 
     public void ReturnToTitle()
     {
+        Time.timeScale = 1f;
         SceneManager.LoadScene("Start Menu");
     }
 
     public void GameOver()
     {
-        gameoverCanvas.SetActive(true);
-        StartCoroutine(ChangeText());
+        if (!isGameOver)
+        {
+            isGameOver = true;
+            OpenMenu(gameoverCanvas);
+            StartCoroutine(ChangeText());
+        }
     }
 
-    public IEnumerator ChangeText()
+    private void OpenMenu(GameObject canvas)
     {
-        yield return new WaitForSeconds(0.05f);
+        canvas.SetActive(!canvas.activeSelf);
+        Time.timeScale = canvas.activeSelf ? 0f : 1f;
+    }
+
+    private IEnumerator ChangeText()
+    {
+        yield return new WaitForSecondsRealtime(0.05f);
         if (player1 == null)
         {
             endingText.text = "Player 2 is the winner !";

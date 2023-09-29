@@ -14,6 +14,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private GameObject Bomb;
 
     [SerializeField] private float moveSpeed;
+
+    public char playerChar;
     
     private char[][] map = new char[25][];
     
@@ -33,7 +35,7 @@ public class PlayerController : MonoBehaviour
 
     public void OnPlaceBomb(InputAction.CallbackContext context)
     {
-        if(context.ReadValueAsButton())
+        if(context.performed)
         {
             GameObject newBomb = Instantiate(Bomb);
             newBomb.transform.position = placeBomb.transform.position;

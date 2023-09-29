@@ -23,14 +23,14 @@ public class RayonCollider : MonoBehaviour
 
     void OnCollisionEnter(Collision collision)
     {
-        if (collision.transform.tag == "MurDestructible" || collision.transform.tag == "Player")
+        if (collision.transform.CompareTag("MurDestructible")  || collision.transform.CompareTag("Player"))
         {
             this.gameObject.SetActive(false);
+            if (collision.transform.CompareTag("Player"))
+                GameManager.instance.GameOver();
             Destroy(collision.gameObject);
-            if (collision.transform.tag == "Player")
-                Temporarycontrols.instance.GameOver();
         }
-	this.gameObject.SetActive(false);
+	    this.gameObject.SetActive(false);
     }
     
     

@@ -722,6 +722,8 @@ MonoBehaviour:
   rayonAvant: {fileID: 3990038647923914780}
   rayonGauche: {fileID: 1545078878035656861}
   rayonDroit: {fileID: 5063296508681637308}
+  explosionSoundprefab: {fileID: 9029418522495102932, guid: 3c93a6d8838a11c4ca27710d0cf17a50,
+    type: 3}
 --- !u!4 &3075142378362899909 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -4216859302048453862, guid: 536e8cafc624df34b831b1c08d0578fd,

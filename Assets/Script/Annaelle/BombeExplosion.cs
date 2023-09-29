@@ -8,6 +8,10 @@ public class BombeExplosion : MonoBehaviour
     [SerializeField] private GameObject rayonAvant;
     [SerializeField] private GameObject rayonGauche;
     [SerializeField] private GameObject rayonDroit;
+
+    [SerializeField] private GameObject explosionSoundprefab;
+
+    private bool activated = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -21,6 +25,11 @@ public class BombeExplosion : MonoBehaviour
         Vector3 localScaleA = go.transform.localScale;
         Vector3 localPos = go.transform.localPosition;
         yield return new WaitForSeconds(2f);
+        if (activated == false)
+        {
+            activated = true;
+            Instantiate(explosionSoundprefab, transform.position, Quaternion.identity);
+        }
         for (int i = 0; i < 5; i++)
         {
             localScaleA += new Vector3(0, 0.7f, 0);
@@ -29,6 +38,7 @@ public class BombeExplosion : MonoBehaviour
             go.transform.localScale = localScaleA;
             yield return new WaitForSeconds(0.1f);
         }
+        
         yield return null;
     }
 }

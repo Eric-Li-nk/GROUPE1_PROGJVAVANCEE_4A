@@ -47,31 +47,6 @@ PrefabInstance:
         type: 3}
     - target: {fileID: 845520929064790909, guid: 54a281ec4e7760849aacb3746e4def08,
         type: 3}
-      propertyPath: KeyUp
-      value: 273
-      objectReference: {fileID: 0}
-    - target: {fileID: 845520929064790909, guid: 54a281ec4e7760849aacb3746e4def08,
-        type: 3}
-      propertyPath: KeyBomb
-      value: 256
-      objectReference: {fileID: 0}
-    - target: {fileID: 845520929064790909, guid: 54a281ec4e7760849aacb3746e4def08,
-        type: 3}
-      propertyPath: KeyDown
-      value: 274
-      objectReference: {fileID: 0}
-    - target: {fileID: 845520929064790909, guid: 54a281ec4e7760849aacb3746e4def08,
-        type: 3}
-      propertyPath: KeyLeft
-      value: 276
-      objectReference: {fileID: 0}
-    - target: {fileID: 845520929064790909, guid: 54a281ec4e7760849aacb3746e4def08,
-        type: 3}
-      propertyPath: KeyRight
-      value: 275
-      objectReference: {fileID: 0}
-    - target: {fileID: 845520929064790909, guid: 54a281ec4e7760849aacb3746e4def08,
-        type: 3}
       propertyPath: moveSpeed
       value: 5
       objectReference: {fileID: 0}
@@ -80,6 +55,11 @@ PrefabInstance:
       propertyPath: placeBomb
       value: 
       objectReference: {fileID: 7681779381560721615}
+    - target: {fileID: 845520929064790909, guid: 54a281ec4e7760849aacb3746e4def08,
+        type: 3}
+      propertyPath: playerChar
+      value: 68
+      objectReference: {fileID: 0}
     - target: {fileID: 972822969045191311, guid: 54a281ec4e7760849aacb3746e4def08,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -150,12 +130,12 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 4313164827163981980, guid: 54a281ec4e7760849aacb3746e4def08,
         type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 7491380240378421621}
+      insertIndex: 3
+      addedObject: {fileID: 3193786800474357805}
     - targetCorrespondingSourceObject: {fileID: 4313164827163981980, guid: 54a281ec4e7760849aacb3746e4def08,
         type: 3}
       insertIndex: -1
-      addedObject: {fileID: 8768858421909236702}
+      addedObject: {fileID: 7491380240378421621}
   m_SourcePrefab: {fileID: 100100000, guid: 54a281ec4e7760849aacb3746e4def08, type: 3}
 --- !u!1 &4690185540482525878 stripped
 GameObject:
@@ -163,34 +143,7 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 8848889821917286954}
   m_PrefabAsset: {fileID: 0}
---- !u!54 &7491380240378421621
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4690185540482525878}
-  serializedVersion: 4
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_CenterOfMass: {x: 0, y: 0, z: 0}
-  m_InertiaTensor: {x: 1, y: 1, z: 1}
-  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ImplicitCom: 1
-  m_ImplicitTensor: 1
-  m_UseGravity: 1
-  m_IsKinematic: 0
-  m_Interpolate: 1
-  m_Constraints: 112
-  m_CollisionDetection: 0
---- !u!114 &8768858421909236702
+--- !u!114 &3193786800474357805
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -202,7 +155,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Actions: {fileID: -944628639613478452, guid: a687820e76726be48bcd165a9a65eff4,
+  m_Actions: {fileID: -944628639613478452, guid: 1d7454de197122044958a589dc3344a5,
     type: 3}
   m_NotificationBehavior: 2
   m_UIInputModule: {fileID: 0}
@@ -230,8 +183,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-    m_ActionId: 08cf2c48-f1cf-4464-9433-f9f53e86fd55
-    m_ActionName: Player/Move[/Keyboard/w,/Keyboard/s,/Keyboard/a,/Keyboard/d,/Keyboard/upArrow,/Keyboard/downArrow,/Keyboard/leftArrow,/Keyboard/rightArrow]
+    m_ActionId: 334b9198-afe5-42c7-a073-820fafbcf7c8
+    m_ActionName: Player 2/Move[/Keyboard/upArrow,/Keyboard/downArrow,/Keyboard/leftArrow,/Keyboard/rightArrow]
   - m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 8175852633050036567}
@@ -246,17 +199,44 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-    m_ActionId: eefa8b69-67fc-41e3-8ba2-e87060427362
-    m_ActionName: Player/Place Bomb[/Keyboard/space,/Keyboard/numpad0]
+    m_ActionId: 0bba42f2-dbb1-40af-b5ec-1717d4168d7e
+    m_ActionName: Player 2/Place Bomb[/Keyboard/numpad0]
   - m_PersistentCalls:
       m_Calls: []
-    m_ActionId: 3c7687af-5822-445d-b800-1eec43d149ec
-    m_ActionName: Player/Open Menu[/Keyboard/escape]
-  m_NeverAutoSwitchControlSchemes: 1
+    m_ActionId: f49651d6-66c1-4a54-b1ba-a638ecc991d6
+    m_ActionName: Player 2/Open Menu[/Keyboard/escape]
+  m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
-  m_DefaultActionMap: Player
+  m_DefaultActionMap: Player 2
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
+--- !u!54 &7491380240378421621
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4690185540482525878}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 1
+  m_Constraints: 112
+  m_CollisionDetection: 0
 --- !u!114 &8175852633050036567 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 845520929064790909, guid: 54a281ec4e7760849aacb3746e4def08,
