@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class BombermanState : MonoBehaviour
 {
+    // Enumeration des actions que le joueur et l'ia peuvent effectuer
     public enum PlayerAction{
         DoNothing = 0,
         GoLeft = 1,
