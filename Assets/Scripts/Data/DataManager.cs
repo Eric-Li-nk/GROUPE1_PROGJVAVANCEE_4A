@@ -51,7 +51,6 @@ public class DataManager : MonoBehaviour
 
         if (_settings == null)
         {
-            Debug.Log("Création de nouveau paramètres");
             NewData();
         }
         
