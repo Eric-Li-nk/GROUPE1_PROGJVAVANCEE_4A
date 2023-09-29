@@ -19,8 +19,8 @@ public class GameInitialization : MonoBehaviour
     [SerializeField] private Transform spawnPointPlayer1;
     [SerializeField] private Transform spawnPointPlayer2;
 
-    private GameObject[][] mapObjet;
-    private char[][] map;
+    [HideInInspector] public static GameObject[][] mapObjet;
+    [HideInInspector] public static char[][] map;
     private string filename;
 
     void Start()
