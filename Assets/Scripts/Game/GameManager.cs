@@ -39,11 +39,13 @@ public class GameManager : MonoBehaviour
 
     public void Restart()
     {
+        Time.timeScale = 1f;
         SceneManager.LoadScene("Game Scene");
     }
 
     public void ReturnToTitle()
     {
+        Time.timeScale = 1f;
         SceneManager.LoadScene("Start Menu");
     }
 
@@ -65,7 +67,7 @@ public class GameManager : MonoBehaviour
 
     private IEnumerator ChangeText()
     {
-        yield return new WaitForSeconds(0.1f);
+        yield return new WaitForSecondsRealtime(0.05f);
         if (player1 == null)
         {
             endingText.text = "Player 2 is the winner !";
