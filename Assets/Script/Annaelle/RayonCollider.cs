@@ -30,7 +30,7 @@ public class RayonCollider : MonoBehaviour
             if (collision.transform.tag == "Player")
                 GameManager.instance.GameOver();
         }
-	this.gameObject.SetActive(false);
+	    this.gameObject.SetActive(false);
     }
     
     

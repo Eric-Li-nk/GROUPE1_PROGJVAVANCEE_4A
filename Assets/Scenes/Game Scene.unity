@@ -138,8 +138,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 121325197}
-  - component: {fileID: 121325196}
   - component: {fileID: 121325198}
+  - component: {fileID: 121325196}
   - component: {fileID: 121325199}
   m_Layer: 0
   m_Name: Scripts
@@ -164,9 +164,9 @@ MonoBehaviour:
   blocList: {fileID: 1852697131}
   blocPrefab: {fileID: 5613615574301569024, guid: 325ae10496371f04c86a8ca55f1f97cf,
     type: 3}
-  playerPrefab: {fileID: 4690185540482525878, guid: e3c3dea13b8bf424fb0c0415791484c8,
+  player1Prefab: {fileID: 4690185540482525878, guid: e3c3dea13b8bf424fb0c0415791484c8,
     type: 3}
-  player2Prefab: {fileID: 4690185540482525878, guid: 8ca3312fe71da0a4ebedbd04ebff6de1,
+  player2Prefab: {fileID: 4690185540482525878, guid: 8e8a0e0cb4dac8d4f8434c9efada99f4,
     type: 3}
   RandomIAPrefab: {fileID: 4690185540482525878, guid: e1aee0dd0343dc84c911afbc299001f3,
     type: 3}
@@ -218,8 +218,8 @@ MonoBehaviour:
   - m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 121325199}
-        m_TargetAssemblyTypeName: Temporarycontrols, Assembly-CSharp
-        m_MethodName: OpenMenu
+        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
+        m_MethodName: OnOpenMenu
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -239,9 +239,21 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: eefa8b69-67fc-41e3-8ba2-e87060427362
     m_ActionName: Player/Place Bomb[/Keyboard/space,/Keyboard/numpad0]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 334b9198-afe5-42c7-a073-820fafbcf7c8
+    m_ActionName: Player 2/Move[/Keyboard/upArrow,/Keyboard/downArrow,/Keyboard/leftArrow,/Keyboard/rightArrow]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 0bba42f2-dbb1-40af-b5ec-1717d4168d7e
+    m_ActionName: Player 2/Place Bomb[/Keyboard/numpad0]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: f49651d6-66c1-4a54-b1ba-a638ecc991d6
+    m_ActionName: Player 2/Open Menu[/Keyboard/escape]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
-  m_DefaultActionMap: Player
+  m_DefaultActionMap: Player 1
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 661540475}
 --- !u!114 &121325199

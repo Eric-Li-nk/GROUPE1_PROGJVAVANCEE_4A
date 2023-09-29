@@ -23,17 +23,10 @@ public class GameManager : MonoBehaviour
         instance = this;
     }
 
-    public void OpenMenu(InputAction.CallbackContext context)
+    public void OnOpenMenu(InputAction.CallbackContext context)
     {
-        menuCanvas.SetActive(!menuCanvas.activeSelf);
-        if (menuCanvas.activeSelf)
-        {
-            Time.timeScale = 1f;
-        }
-        else
-        {
-            Time.timeScale = 0f;
-        }
+        if(context.performed)
+            OpenMenu(menuCanvas);
     }
 
     public void Return()
@@ -54,13 +47,19 @@ public class GameManager : MonoBehaviour
 
     public void GameOver()
     {
-        gameoverCanvas.SetActive(true);
+        OpenMenu(gameoverCanvas);
         StartCoroutine(ChangeText());
+    }
+
+    private void OpenMenu(GameObject canvas)
+    {
+        canvas.SetActive(!canvas.activeSelf);
+        Time.timeScale = canvas.activeSelf ? 0f : 1f;
     }
 
     private IEnumerator ChangeText()
     {
-        yield return new WaitForSeconds(0.05f);
+        yield return new WaitForSeconds(0.1f);
         if (player1 == null)
         {
             endingText.text = "Player 2 is the winner !";

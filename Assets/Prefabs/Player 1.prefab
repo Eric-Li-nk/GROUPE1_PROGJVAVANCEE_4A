@@ -108,7 +108,7 @@ PrefabInstance:
     - target: {fileID: 4313164827163981980, guid: 54a281ec4e7760849aacb3746e4def08,
         type: 3}
       propertyPath: m_Name
-      value: Player
+      value: Player 1
       objectReference: {fileID: 0}
     - target: {fileID: 4313164827163981980, guid: 54a281ec4e7760849aacb3746e4def08,
         type: 3}
@@ -201,35 +201,11 @@ MonoBehaviour:
     m_ActionId: 3c7687af-5822-445d-b800-1eec43d149ec
     m_ActionName: Player/Open Menu[/Keyboard/escape]
   - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 8175852633050036567}
-        m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
-        m_MethodName: OnMove
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
     m_ActionId: 334b9198-afe5-42c7-a073-820fafbcf7c8
     m_ActionName: Player 2/Move[/Keyboard/upArrow,/Keyboard/downArrow,/Keyboard/leftArrow,/Keyboard/rightArrow]
   - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 8175852633050036567}
-        m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
-        m_MethodName: OnPlaceBomb
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
     m_ActionId: 0bba42f2-dbb1-40af-b5ec-1717d4168d7e
     m_ActionName: Player 2/Place Bomb[/Keyboard/numpad0]
   - m_PersistentCalls:
@@ -237,7 +213,7 @@ MonoBehaviour:
     m_ActionId: f49651d6-66c1-4a54-b1ba-a638ecc991d6
     m_ActionName: Player 2/Open Menu[/Keyboard/escape]
   m_NeverAutoSwitchControlSchemes: 0
-  m_DefaultControlScheme: 
+  m_DefaultControlScheme: Keyboard Left
   m_DefaultActionMap: Player 1
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}

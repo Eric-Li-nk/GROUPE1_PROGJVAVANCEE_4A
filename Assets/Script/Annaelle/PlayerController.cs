@@ -33,8 +33,9 @@ public class PlayerController : MonoBehaviour
 
     public void OnPlaceBomb(InputAction.CallbackContext context)
     {
-        if(context.ReadValueAsButton())
+        if(context.performed)
         {
+            Debug.Log("placing bomb");
             GameObject newBomb = Instantiate(Bomb);
             newBomb.transform.position = placeBomb.transform.position;
             newBomb.transform.position = new Vector3(Mathf.RoundToInt(newBomb.transform.position.x),

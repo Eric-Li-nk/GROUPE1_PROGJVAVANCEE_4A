@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.Users;
 
 public class GameInitialization : MonoBehaviour
 {
@@ -10,7 +11,8 @@ public class GameInitialization : MonoBehaviour
     [SerializeField] private Transform blocList;
     [SerializeField] private GameObject blocPrefab;
 
-    [SerializeField] private GameObject playerPrefab;
+    [SerializeField] private GameObject player1Prefab;
+    [SerializeField] private GameObject player2Prefab;
     [SerializeField] private GameObject RandomIAPrefab;
     [SerializeField] private GameObject MCTSIAPrefab;
 
@@ -27,10 +29,8 @@ public class GameInitialization : MonoBehaviour
     {
         if (_gameConfig.player1 == _gameConfig.player2 && _gameConfig.player1 == PlayerType.Human)
         {
-            GameManager.instance.player1 = Instantiate(playerPrefab, spawnPointPlayer1.position, spawnPointPlayer1.rotation);
-            GameManager.instance.player2 = Instantiate(playerPrefab, spawnPointPlayer2.position, spawnPointPlayer2.rotation);
-            GameManager.instance.player2.GetComponent<PlayerInput>().SwitchCurrentActionMap("Player 2");
-            
+            GameManager.instance.player1 = Instantiate(player1Prefab, spawnPointPlayer1.position, spawnPointPlayer1.rotation);
+            GameManager.instance.player2 = Instantiate(player2Prefab, spawnPointPlayer2.position, spawnPointPlayer2.rotation);
         }
         else
         {
@@ -48,7 +48,7 @@ public class GameInitialization : MonoBehaviour
                 Debug.LogError("Players is not set !!!!");
                 return null;
             case PlayerType.Human:
-                prefabToSpawn = playerPrefab;
+                prefabToSpawn = player1Prefab;
                 break;
             case PlayerType.Random:
                 prefabToSpawn = RandomIAPrefab;
