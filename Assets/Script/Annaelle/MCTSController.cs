@@ -21,7 +21,7 @@ public class MCTSController : MonoBehaviour
     private GameState currentGameState;
     
     //list de tous les mouvements possibles
-    private List<BombermanState.PlayerAction> MoveToPlay;
+    private List<BombermanState.PlayerAction> MoveToPlay = new List<BombermanState.PlayerAction>();
 
     public char playerChar;
     
@@ -46,7 +46,6 @@ public class MCTSController : MonoBehaviour
         //initialisation du gameState
         currentGameState = new GameState();
         StartNode = new NodeMCTS(currentGameState);
-        MoveToPlay = new List<BombermanState.PlayerAction>();
         _rigidbody = GetComponent<Rigidbody>();
     }
 
@@ -54,11 +53,11 @@ public class MCTSController : MonoBehaviour
     {
         //activation du MCTS
         act = MCTSAction();
-        
+
         //effectuer l'action selectionner
         PlayAction(act);
     }
-
+    
     private BombermanState.PlayerAction MCTSAction()
     {
         //Copie le game state dans le noeud parent
@@ -88,8 +87,7 @@ public class MCTSController : MonoBehaviour
         {
             return StartNode;
         }
-            
-        
+
         /*
          * creation d"un nombre aleatoire pour choisir si on effectue une exploration ou une exploitation
          *
@@ -102,10 +100,9 @@ public class MCTSController : MonoBehaviour
             /*
              * selection aléatoire d'un noeud enfant
              * 
-             */ 
-            getListAction();
-            int rand = Random.Range(0, MoveToPlay.Count);
+             */
             List<NodeMCTS> children = StartNode.GetChild();
+            int rand = Random.Range(0, children.Count);
             return children[rand];
         }
 
@@ -122,14 +119,14 @@ public class MCTSController : MonoBehaviour
         {
             return selectNode;
         }
-        BombermanState.PlayerAction selectAct = MoveToPlay[Random.Range(0, MoveToPlay.Count)];
-
+        BombermanState.PlayerAction selectAct = selectRandAct(MoveToPlay);
+    
         GameState newState = ApplyAction(selectNode.GetGameState(), selectAct);
 
-        NodeMCTS newNode = new NodeMCTS(newState, selectNode,selectAct);
+        NodeMCTS newNode = new NodeMCTS(newState, selectNode, selectAct);
             
         selectNode.children.Add(newNode);
-
+        
         return newNode;
     }
 
@@ -138,17 +135,14 @@ public class MCTSController : MonoBehaviour
         int nbWin = 0;
         for (int i = 0; i < nbSimulation; i++)
         {
-            BombermanState.PlayerAction selectAction = selectRandAct(MoveToPlay);
             GameState copyCurrentGamestate = currentGameState.Copy();
             while (copyCurrentGamestate.IsGameOver())
             {
                 copyCurrentGamestate.RefreshBoard();
                 copyCurrentGamestate.PlayAction(selectRandAct(getListAction(copyCurrentGamestate.GetBoard())));
             }
-
             nbWin += copyCurrentGamestate.win;
         }
-
         return nbWin;
     }
 
@@ -170,9 +164,9 @@ public class MCTSController : MonoBehaviour
 
     private void getListAction()
     {
-        int pos_x = (int)Math.Floor(this.transform.position.x);
-        int pos_y = (int)Math.Floor(this.transform.position.y);
-
+        int pos_x = Mathf.RoundToInt(-this.transform.position.z);
+        int pos_y = Mathf.RoundToInt(this.transform.position.x);
+        
         MoveToPlay.Clear();
 
         char[][] map = currentGameState.GetBoard();
@@ -180,16 +174,16 @@ public class MCTSController : MonoBehaviour
         MoveToPlay.Add(BombermanState.PlayerAction.DoNothing);
         MoveToPlay.Add(BombermanState.PlayerAction.PutBomb);
         
-        if(inBoard(pos_x,pos_y-1) && (map[pos_x][pos_y-1] != 'M' || map[pos_x][pos_y-1] != '0'))
+        if(inBoard(pos_x,pos_y-1) && (map[pos_x][pos_y-1] != 'M' && map[pos_x][pos_y-1] != '0'))
             MoveToPlay.Add(BombermanState.PlayerAction.GoLeft);
             
-        if(inBoard(pos_x,pos_y+1) && (map[pos_x][pos_y+1] != 'M' || map[pos_x][pos_y+1] != '0'))
+        if(inBoard(pos_x,pos_y+1) && (map[pos_x][pos_y+1] != 'M' && map[pos_x][pos_y+1] != '0'))
             MoveToPlay.Add(BombermanState.PlayerAction.GoRight);
             
-        if(inBoard(pos_x+1,pos_y) && (map[pos_x+1][pos_y] != 'M' || map[pos_x+1][pos_y] != '0'))
+        if(inBoard(pos_x+1,pos_y) && (map[pos_x+1][pos_y] != 'M' && map[pos_x+1][pos_y] != '0'))
             MoveToPlay.Add(BombermanState.PlayerAction.GoDown);
             
-        if(inBoard(pos_x-1,pos_y) && (map[pos_x-1][pos_y] != 'M' || map[pos_x-1][pos_y] != '0'))
+        if(inBoard(pos_x-1,pos_y) && (map[pos_x-1][pos_y] != 'M' && map[pos_x-1][pos_y] != '0'))
             MoveToPlay.Add(BombermanState.PlayerAction.GoUp);
     }
 
@@ -213,16 +207,16 @@ public class MCTSController : MonoBehaviour
         moveToPlay.Add(BombermanState.PlayerAction.DoNothing);
         moveToPlay.Add(BombermanState.PlayerAction.PutBomb);
             
-        if(inBoard(pos_x,pos_y-1) && (map[pos_x][pos_y-1] != 'M' || map[pos_x][pos_y-1] != '0'))
+        if(inBoard(pos_x,pos_y-1) && (map[pos_x][pos_y-1] != 'M' && map[pos_x][pos_y-1] != '0'))
             moveToPlay.Add(BombermanState.PlayerAction.GoLeft);
             
-        if(inBoard(pos_x,pos_y+1) && (map[pos_x][pos_y+1] != 'M' || map[pos_x][pos_y+1] != '0'))
+        if(inBoard(pos_x,pos_y+1) && (map[pos_x][pos_y+1] != 'M' && map[pos_x][pos_y+1] != '0'))
             moveToPlay.Add(BombermanState.PlayerAction.GoRight);
             
-        if(inBoard(pos_x+1,pos_y) && (map[pos_x+1][pos_y] != 'M' || map[pos_x+1][pos_y] != '0'))
+        if(inBoard(pos_x+1,pos_y) && (map[pos_x+1][pos_y] != 'M' && map[pos_x+1][pos_y] != '0'))
             moveToPlay.Add(BombermanState.PlayerAction.GoDown);
             
-        if(inBoard(pos_x-1,pos_y) && (map[pos_x-1][pos_y] != 'M' || map[pos_x-1][pos_y] != '0'))
+        if(inBoard(pos_x-1,pos_y) && (map[pos_x-1][pos_y] != 'M' && map[pos_x-1][pos_y] != '0'))
             moveToPlay.Add(BombermanState.PlayerAction.GoUp);
         
         return moveToPlay;
@@ -259,52 +253,44 @@ public class MCTSController : MonoBehaviour
 
     private void MoveLeft(GameState state)
     {
+        int pos_x = Mathf.RoundToInt(-this.transform.position.z);
         int pos_y = Mathf.RoundToInt(this.transform.position.x);
-        int pos_x = Mathf.RoundToInt(this.transform.position.y);
 
-        char[][] map = currentGameState.GetBoard();
-
-        map[pos_x][pos_y] = 'L';
-        map[pos_x][pos_y - 1] = 'B';
+        currentGameState.board[pos_x][pos_y] = 'L';
+        currentGameState.board[pos_x][pos_y - 1] = 'B';
     }
 
     private void MoveRight(GameState state)
     {
+        int pos_x = Mathf.RoundToInt(-this.transform.position.z);
         int pos_y = Mathf.RoundToInt(this.transform.position.x);
-        int pos_x = Mathf.RoundToInt(this.transform.position.y);
 
-        char[][] map = currentGameState.GetBoard();
-
-        map[pos_x][pos_y] = 'L';
-        map[pos_x][pos_y + 1] = 'B';
+        currentGameState.board[pos_x][pos_y] = 'L';
+        currentGameState.board[pos_x][pos_y + 1] = 'B';
     }
     
     private void MoveUp(GameState state)
     {
+        int pos_x = Mathf.RoundToInt(-this.transform.position.z);
         int pos_y = Mathf.RoundToInt(this.transform.position.x);
-        int pos_x = Mathf.RoundToInt(this.transform.position.y);
 
-        char[][] map = currentGameState.GetBoard();
-
-        map[pos_x][pos_y] = 'L';
-        map[pos_x - 1][pos_y] = 'B';
+        currentGameState.board[pos_x][pos_y] = 'L';
+        currentGameState.board[pos_x - 1][pos_y] = 'B';
     }
     
     private void MoveDown(GameState state)
     {
+        int pos_x = Mathf.RoundToInt(-this.transform.position.z);
         int pos_y = Mathf.RoundToInt(this.transform.position.x);
-        int pos_x = Mathf.RoundToInt(this.transform.position.y);
-
-        char[][] map = currentGameState.GetBoard();
-
-        map[pos_x][pos_y] = 'L';
-        map[pos_x + 1][pos_y] = 'B';
+        
+        currentGameState.board[pos_x][pos_y] = 'L';
+        currentGameState.board[pos_x + 1][pos_y] = 'B';
     }
     
     private void PutBomb(GameState state)
     {
+        int pos_x = Mathf.RoundToInt(-this.transform.position.z);
         int pos_y = Mathf.RoundToInt(this.transform.position.x);
-        int pos_x = Mathf.RoundToInt(this.transform.position.y);
         
         currentGameState.bombBoard[pos_x][pos_y] = '3';
     }

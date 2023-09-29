@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class GameState
 {
-    private char[][] board = new char[25][];
+    public char[][] board = new char[25][];
     public char[][] bombBoard = new char[15][];
 
     private Time timer;
