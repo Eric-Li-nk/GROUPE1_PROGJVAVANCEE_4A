@@ -29,6 +29,7 @@ public class GameState
         this.timer = timer;
     }
 
+    //Permet de recuperer la position de l'ia sur le board
     private (int, int)  GetMCTSPosition()
     {
         int pos_x = -1, pos_y = -1;
@@ -47,6 +48,7 @@ public class GameState
         return (pos_x, pos_y);
     }
 
+    // Permet de simuler l'action passee en parametre sur le board
     public void PlayAction(BombermanState.PlayerAction action)
     {
         (int pos_x,int pos_y) = GetMCTSPosition();
@@ -181,6 +183,7 @@ public class GameState
         return this.board;
     }
 
+    // Permet de creer une copie du gamestate
     public GameState Copy()
     {
         GameState copy = new GameState();
