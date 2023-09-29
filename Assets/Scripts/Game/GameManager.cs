@@ -16,6 +16,8 @@ public class GameManager : MonoBehaviour
     [HideInInspector] public GameObject player1;
     [HideInInspector] public GameObject player2;
 
+    private bool isGameOver = false;
+
     public static GameManager instance;
 
     private void Awake()
@@ -47,8 +49,12 @@ public class GameManager : MonoBehaviour
 
     public void GameOver()
     {
-        OpenMenu(gameoverCanvas);
-        StartCoroutine(ChangeText());
+        if (!isGameOver)
+        {
+            isGameOver = true;
+            OpenMenu(gameoverCanvas);
+            StartCoroutine(ChangeText());
+        }
     }
 
     private void OpenMenu(GameObject canvas)
