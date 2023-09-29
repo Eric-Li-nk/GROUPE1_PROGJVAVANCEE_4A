@@ -89,7 +89,6 @@ public class GameInitialization : MonoBehaviour
             {
                 case '0':
                     Instantiate(blocPrefab, position, blocPrefab.transform.rotation, blocList);
-                    
                     x += 1;
                     break;
                 case '\n':

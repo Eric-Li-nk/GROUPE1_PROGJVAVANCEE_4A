@@ -20,7 +20,7 @@ public class PlayerController : MonoBehaviour
     private Rigidbody _rigidbody;
     private Vector2 moveInput = Vector2.zero;
 
-    private void Start()
+    private void Awake()
     {
         _rigidbody = GetComponent<Rigidbody>();
         intiateMap(map);
@@ -71,9 +71,8 @@ public class PlayerController : MonoBehaviour
 
         }
         reader.Close();
-        
-        //printMap(map);
-        
+
+        GameInitialization.map = this.map;
     }
 
     void printMap(char[][] map)

@@ -79,6 +79,7 @@ public class MCTSController : MonoBehaviour
      */
     private NodeMCTS Selection()
     {
+        Debug.Log("in bouble selec");
         //si le noeud n'a pas d'enfant, on retoure le noeud de depart
         if (StartNode.GetChild() == null)
             return StartNode;
@@ -89,23 +90,19 @@ public class MCTSController : MonoBehaviour
          * si rand est inferieur au facteur d'exploration, on fait une exploration sinon on fait une exploitation
          */
         float randNb = Random.Range(0, 1);
-        
         if (randNb < factEploration)
         {
-            /*
-             * selection aléatoire d'un noeud enfant
-             * 
-             */ 
+            // selection aléatoire d'un noeud enfant, a partir du nombre d'action possible qui nous reste a efectuer
             getListAction();
             int rand = Random.Range(0, MoveToPlay.Count);
             List<NodeMCTS> children = StartNode.GetChild();
             return children[rand];
         }
         
-        //exploiter (best noeud)
+        //parcourir tout les enfants direct du node et on renvoie celui avec le meilleur score
         NodeMCTS best = GetBestScore(StartNode);
-        return best;
         
+        return best;
     }
 
     private NodeMCTS Expand(NodeMCTS selectNode)
